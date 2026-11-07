@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login - MONORANJON</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="logo" href="index.html">MONO<span>RANJON</span></a>
+    <nav><a href="index.html">Home</a></nav>
+  </header>
+
+  <main class="section">
+    <div class="panel">
+      <h2>Welcome Back</h2>
+      <p class="muted">Login to your MONORANJON account.</p>
+
+      <label>Email</label>
+      <input id="email" type="email" placeholder="Your email">
+
+      <label>Password</label>
+      <input id="password" type="password" placeholder="Password">
+
+      <button id="loginBtn" class="primary-btn full">Login</button>
+      <button id="googleBtn" class="google-btn">Continue with Google</button>
+
+      <p id="authMessage" class="message"></p>
+      <p>Don't have an account? <a href="register.html">Register</a></p>
+    </div>
+  </main>
+
+  <script type="module" src="auth-pages.js"></script>
+</body>
+</html>
