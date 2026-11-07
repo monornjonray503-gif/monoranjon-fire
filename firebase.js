@@ -1,8 +1,7 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 
 import {
-  getAuth,
-  GoogleAuthProvider
+  getAuth
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
 import {
@@ -13,18 +12,20 @@ import {
   getStorage
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
 
+// Replace these values with your Firebase Web App config.
 const firebaseConfig = {
-  apiKey: "AIzaSyCWDIrTWUG2W6m8iY3_bZ53dnxDDnCuEWM",
-  authDomain: "monoranjon-38b8d.firebaseapp.com",
-  projectId: "monoranjon-38b8d",
-  storageBucket: "monoranjon-38b8d.firebasestorage.app",
-  messagingSenderId: "869924879569",
-  appId: "1:869924879569:web:8f5b74e634ef2fe82219f0"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length
+  ? getApp()
+  : initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
-export const googleProvider = new GoogleAuthProvider();
