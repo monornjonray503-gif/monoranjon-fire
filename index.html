@@ -1,271 +1,1021 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#090817">
-  <meta name="description" content="MONORANJON - Discover games, apps, software and digital products.">
-  <title>MONORANJON — Digital Marketplace</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080516">
+<meta name="description" content="MONORANJON - Explore games, apps, software, websites and digital services.">
+<title>MONORANJON | Premium Digital Marketplace</title>
 
-  <div class="announcement">
-    <span>✦</span> Welcome to MONORANJON — Explore Your Digital World
-    <span class="announcement-link">Discover Now →</span>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+ --bg:#080516;--panel:#120d29;--panel2:#191132;
+ --purple:#8c32ff;--pink:#ed39ed;--cyan:#36d8ff;
+ --text:#fff;--muted:#aaa2c3;--border:#ffffff17;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+button{cursor:pointer}
+.container{width:90%;max-width:1320px;margin:auto}
+.gradient{
+ background:linear-gradient(100deg,#a76aff,#f14ae9,#54d7ff);
+ background-clip:text;-webkit-background-clip:text;color:transparent
+}
+
+/* Background effects */
+body:before{
+ content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+ background:
+ radial-gradient(ellipse at 10% 15%,#7020ba19,transparent 40%),
+ radial-gradient(ellipse at 90% 60%,#172b9b1b,transparent 40%)
+}
+.ambient{
+ position:fixed;width:260px;height:260px;border-radius:50%;
+ filter:blur(110px);opacity:.16;pointer-events:none;z-index:-1;
+ background:#8c32ff;top:20%;left:-100px;
+ animation:ambient 12s ease-in-out infinite alternate
+}
+@keyframes ambient{
+ to{transform:translate(80px,100px) scale(1.4);background:#ec38f4}
+}
+@keyframes float{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-13px)}
+}
+@keyframes pulse{
+ 0%,100%{box-shadow:0 0 15px #a43cff55}
+ 50%{box-shadow:0 0 38px #d12dff99}
+}
+@keyframes shine{
+ 0%{background-position:0% 50%}
+ 100%{background-position:200% 50%}
+}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes fadeUp{
+ from{opacity:0;transform:translateY(25px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+/* Top announcement */
+.topbar{
+ padding:9px 15px;text-align:center;font-size:10px;
+ background:linear-gradient(90deg,#3d137c,#8526c9,#3d137c);
+ letter-spacing:.3px
+}
+.topbar a{font-weight:800;color:white;margin-left:10px}
+
+/* Header */
+header{
+ position:sticky;top:0;z-index:100;
+ background:#090617eF;backdrop-filter:blur(20px);
+ border-bottom:1px solid var(--border)
+}
+.navbar{
+ min-height:77px;display:flex;align-items:center;
+ justify-content:space-between;gap:20px
+}
+.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{
+ width:45px;height:45px;border-radius:14px;
+ display:grid;place-items:center;
+ background:linear-gradient(135deg,#9a40ff,#e936ec);
+ box-shadow:0 0 28px #a23aff77;
+ font-size:29px;font-weight:900;position:relative
+}
+.logo-mark:after{
+ content:"♛";position:absolute;top:-12px;right:-7px;
+ font-size:16px;color:#ffd65c;
+ text-shadow:0 0 10px #ffbf44
+}
+.brand-name{font-size:17px;font-weight:900;letter-spacing:.4px}
+.brand-name span{color:#d56aff}
+.brand small{display:block;font-size:9px;color:#b3a8cb}
+.nav-links{display:flex;align-items:center;gap:23px}
+.nav-links a{font-size:11px;color:#d0c9df;transition:.2s}
+.nav-links a:hover{color:#ed8aff}
+.nav-actions{display:flex;align-items:center;gap:9px}
+.btn{
+ display:inline-flex;align-items:center;justify-content:center;
+ padding:12px 19px;border:1px solid var(--border);
+ border-radius:30px;color:white;background:#ffffff06;
+ font-size:11px;font-weight:800;transition:.25s
+}
+.btn:hover{transform:translateY(-3px);border-color:#b56bff}
+.btn-primary{
+ background:linear-gradient(100deg,#8629ff,#e52bea);
+ border:0;box-shadow:0 0 25px #b42eff66
+}
+.btn-primary:hover{box-shadow:0 0 35px #df40ff99}
+.menu{display:none;background:none;border:0;color:white;font-size:25px}
+
+/* Hero */
+.hero{
+ min-height:530px;display:grid;grid-template-columns:1.05fr .95fr;
+ align-items:center;gap:30px;padding:65px 0 55px;position:relative
+}
+.hero-content{animation:fadeUp .8s both;position:relative;z-index:2}
+.eyebrow{
+ display:inline-flex;align-items:center;gap:8px;
+ padding:8px 14px;border:1px solid #a957ff66;
+ border-radius:30px;background:#882aff19;
+ color:#ddb0ff;font-size:10px;font-weight:700
+}
+.dot{
+ width:7px;height:7px;border-radius:50%;background:#d94cff;
+ box-shadow:0 0 12px #d94cff
+}
+.hero h1{
+ font-size:clamp(42px,5.4vw,69px);line-height:1.08;
+ letter-spacing:-2.8px;margin:22px 0 17px;font-weight:900
+}
+.hero-content>p{
+ color:#bbb3d0;font-size:13px;line-height:1.9;max-width:470px
+}
+.hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}
+.hero-buttons .btn{padding:14px 20px}
+.hero-stats{display:flex;gap:28px;margin-top:39px;flex-wrap:wrap}
+.stat{display:flex;align-items:center;gap:10px}
+.stat-icon{font-size:23px}
+.stat strong{display:block;font-size:15px}
+.stat small{display:block;font-size:9px;color:var(--muted)}
+.hero-visual{
+ min-height:390px;display:grid;place-items:center;position:relative;
+ animation:fadeUp 1s both
+}
+.visual-glow{
+ position:absolute;width:280px;height:280px;border-radius:50%;
+ background:#8d29ff;filter:blur(100px);opacity:.3
+}
+.visual-ring{
+ position:absolute;width:95%;height:180px;border-radius:50%;
+ border:1px solid #a64aff66;transform:rotate(-16deg);
+ animation:orbit 35s linear infinite
+}
+.visual-ring.two{
+ width:105%;height:130px;transform:rotate(20deg);
+ border-color:#3876ff77;animation-direction:reverse
+}
+.main-device{
+ width:270px;max-width:80%;min-height:235px;
+ border:1px solid #c07aff;border-radius:19px;
+ background:linear-gradient(145deg,#25114d,#090b24);
+ box-shadow:0 0 45px #a13aff88,inset 0 0 40px #ad40ff20;
+ display:flex;flex-direction:column;align-items:center;
+ justify-content:center;position:relative;z-index:2;
+ transform:perspective(700px) rotateY(-7deg);
+ animation:float 5s ease-in-out infinite
+}
+.device-logo{
+ width:78px;height:78px;border-radius:23px;
+ background:linear-gradient(140deg,#9b3bff,#ed3de9);
+ display:grid;place-items:center;font-size:53px;font-weight:900;
+ box-shadow:0 0 35px #b53dff88
+}
+.main-device h2{font-size:21px;margin-top:16px;letter-spacing:1px}
+.main-device p{font-size:10px;color:#cbb2ec}
+.device-line{
+ width:65%;height:3px;border-radius:10px;margin-top:15px;
+ background:linear-gradient(90deg,transparent,#ed81ff,transparent)
+}
+.float-icon{
+ position:absolute;z-index:3;width:48px;height:48px;
+ display:grid;place-items:center;border-radius:14px;
+ border:1px solid #b96dff;background:#241347;
+ box-shadow:0 0 25px #9b43ff77;font-size:23px;
+ animation:float 4s ease-in-out infinite
+}
+.fi1{top:45px;left:8%}
+.fi2{right:8%;top:60px;animation-delay:1s}
+.fi3{right:0;bottom:70px;animation-delay:2s}
+.fi4{left:3%;bottom:42px;animation-delay:1.5s}
+.visual-caption{
+ position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+ color:#d4b0ff;font-size:9px;letter-spacing:2px;white-space:nowrap
+}
+
+/* Search */
+.search-section{position:relative;z-index:5;margin-top:-12px}
+.search-box{
+ max-width:650px;margin:auto;padding:8px 9px 8px 18px;
+ display:flex;align-items:center;gap:12px;
+ border:1px solid #a855f7;border-radius:40px;
+ background:#17102d;box-shadow:0 10px 35px #0008
+}
+.search-icon{font-size:22px;color:#dc9cff}
+.search-box input{
+ flex:1;min-width:0;background:none;border:0;
+ outline:0;color:white;font-size:12px
+}
+.search-box input::placeholder{color:#938ba9}
+.search-box button{
+ border:0;padding:12px 23px;border-radius:30px;
+ color:white;font-size:11px;font-weight:800;
+ background:linear-gradient(90deg,#8e2aff,#e536ee)
+}
+
+/* General section */
+.section{padding-top:80px}
+.section-head{
+ display:flex;align-items:end;justify-content:space-between;
+ gap:15px;margin-bottom:26px
+}
+.section-kicker{font-size:9px;color:#d37aff;letter-spacing:2px;font-weight:900}
+.section-head h2{font-size:27px;line-height:1.3;margin-top:5px}
+.section-head p{font-size:11px;color:var(--muted);margin-top:5px}
+.view-link{font-size:10px;color:#e295ff;font-weight:800}
+
+/* Categories */
+.category-grid{
+ display:grid;grid-template-columns:repeat(5,1fr);gap:13px
+}
+.category-card{
+ min-height:108px;border-radius:16px;padding:17px;
+ display:flex;align-items:center;gap:12px;
+ border:1px solid #ffffff25;transition:.3s;position:relative;overflow:hidden
+}
+.category-card:after{
+ content:"";position:absolute;right:-40px;top:-50px;
+ width:120px;height:120px;border-radius:50%;
+ background:#ffffff17;filter:blur(10px)
+}
+.category-card:hover{transform:translateY(-7px);filter:brightness(1.15)}
+.category-card .emoji{font-size:27px;z-index:1}
+.category-card div{z-index:1}
+.category-card strong{font-size:12px;display:block}
+.category-card small{font-size:9px;opacity:.85}
+.category-card b{margin-left:auto;z-index:1;font-size:18px}
+.cat1{background:linear-gradient(130deg,#7928d7,#39127c)}
+.cat2{background:linear-gradient(130deg,#087fd3,#123c90)}
+.cat3{background:linear-gradient(130deg,#078b73,#075144)}
+.cat4{background:linear-gradient(130deg,#cf6519,#833014)}
+.cat5{background:linear-gradient(130deg,#ba258c,#651365)}
+
+/* Filters and products */
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters button{
+ border:1px solid var(--border);border-radius:30px;
+ background:#171128;color:#bcb4ce;padding:9px 17px;font-size:10px
+}
+.filters button.active{
+ background:linear-gradient(90deg,#8d2bff,#dc32e8);
+ color:white;border-color:#c078ff
+}
+.product-grid{
+ display:grid;grid-template-columns:repeat(4,1fr);
+ gap:17px;margin-top:22px
+}
+.product-card{
+ overflow:hidden;background:var(--panel);
+ border:1px solid var(--border);border-radius:16px;transition:.3s
+}
+.product-card:hover{
+ transform:translateY(-7px);border-color:#aa62ff;
+ box-shadow:0 15px 40px #0007
+}
+.product-card[hidden]{display:none}
+.product-art{
+ height:165px;display:grid;place-items:center;
+ position:relative;overflow:hidden;font-size:57px
+}
+.product-art:after{
+ content:"";position:absolute;width:160px;height:160px;
+ border:1px solid #ffffff22;border-radius:50%
+}
+.art-game{background:radial-gradient(circle,#7635c2,#24113d)}
+.art-app{background:radial-gradient(circle,#087f9a,#10233d)}
+.art-software{background:radial-gradient(circle,#1c8271,#122d36)}
+.art-web{background:radial-gradient(circle,#8d3cba,#24143e)}
+.art-design{background:radial-gradient(circle,#b54d29,#32182e)}
+.product-art span{z-index:1}
+.product-label{
+ position:absolute;top:12px;left:12px;z-index:2;
+ background:#df32b6;border-radius:20px;padding:5px 9px;
+ font-size:8px;font-weight:900;letter-spacing:.6px
+}
+.product-info{padding:16px}
+.product-info>small{font-size:9px;color:#d28bff;font-weight:800;letter-spacing:1px}
+.product-info h3{font-size:14px;margin:6px 0}
+.product-info p{font-size:10px;color:var(--muted);min-height:33px}
+.product-bottom{
+ display:flex;justify-content:space-between;align-items:center;
+ border-top:1px solid var(--border);padding-top:12px;margin-top:13px
+}
+.product-bottom span{font-size:10px;color:#b9a8d2}
+.product-bottom a{font-size:10px;color:#e4a0ff;font-weight:800}
+.empty-message{display:none;text-align:center;padding:35px;color:var(--muted)}
+
+/* Services */
+.services-grid{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:16px
+}
+.service-card{
+ padding:24px;border:1px solid var(--border);
+ border-radius:17px;background:linear-gradient(145deg,#19122f,#0e0b20);
+ transition:.3s
+}
+.service-card:hover{border-color:#a452f5;transform:translateY(-5px)}
+.service-icon{
+ width:50px;height:50px;display:grid;place-items:center;
+ border-radius:14px;font-size:25px;
+ background:linear-gradient(140deg,#7828c9,#3b1b76);
+ box-shadow:0 0 20px #822ce644
+}
+.service-card h3{font-size:15px;margin:17px 0 7px}
+.service-card p{font-size:10px;line-height:1.8;color:var(--muted)}
+.service-card a{display:inline-block;margin-top:15px;color:#d999ff;font-size:10px;font-weight:800}
+
+/* Feature */
+.feature{
+ margin-top:85px;padding:45px;border:1px solid #8c4ac1;
+ border-radius:23px;display:grid;grid-template-columns:1fr 1fr;
+ align-items:center;gap:25px;overflow:hidden;
+ background:radial-gradient(ellipse at 85%,#7129b55a,transparent 55%),#17102b
+}
+.feature h2{font-size:35px;line-height:1.25;margin:15px 0}
+.feature p{font-size:12px;color:var(--muted);max-width:430px;margin-bottom:22px}
+.feature-art{min-height:230px;display:grid;place-items:center;position:relative}
+.feature-art:before{
+ content:"";position:absolute;width:170px;height:170px;
+ border:1px solid #b76dff;border-radius:50%;
+ box-shadow:0 0 45px #a54bff66,inset 0 0 35px #9b42ff44;
+ animation:orbit 15s linear infinite
+}
+.feature-M{
+ font-size:110px;font-weight:900;
+ color:#dca0ff;text-shadow:0 0 45px #a33cff;
+ animation:float 4s ease-in-out infinite
+}
+
+/* About */
+.about{text-align:center;padding:80px 0 30px}
+.about h2{font-size:28px;margin:13px 0}
+.about p{max-width:680px;margin:auto;color:var(--muted);font-size:12px;line-height:2}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.contact-card{
+ display:flex;align-items:center;gap:15px;padding:22px;
+ border:1px solid var(--border);border-radius:15px;background:var(--panel)
+}
+.contact-card:hover{border-color:#a956ff}
+.contact-icon{font-size:28px}
+.contact-card strong{display:block;font-size:13px}
+.contact-card small{display:block;color:var(--muted);font-size:10px}
+.contact-card a{margin-left:auto;color:#dfa0ff;font-size:10px;font-weight:800}
+.social-soon{opacity:.6}
+
+/* Newsletter */
+.newsletter{
+ margin-top:75px;padding:32px;border:1px solid #7836b6;
+ border-radius:19px;background:linear-gradient(110deg,#21113e,#15102c);
+ display:flex;justify-content:space-between;align-items:center;gap:20px
+}
+.newsletter h3{font-size:20px}
+.newsletter p{font-size:10px;color:var(--muted)}
+.newsletter form{display:flex;gap:8px;width:45%;max-width:430px}
+.newsletter input{
+ flex:1;min-width:0;background:#080516;border:1px solid var(--border);
+ border-radius:30px;padding:12px 15px;color:white;outline:0;font-size:10px
+}
+.newsletter button{
+ border:0;border-radius:30px;padding:11px 17px;
+ color:white;background:linear-gradient(90deg,#8b2aff,#df30e9);
+ font-size:10px;font-weight:800
+}
+
+/* Footer */
+footer{
+ margin-top:80px;padding:48px 0 20px;
+ border-top:1px solid var(--border);background:#070410
+}
+.footer-grid{
+ display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:30px
+}
+.footer-grid h4{font-size:12px;margin-bottom:15px}
+.footer-grid p{max-width:250px;font-size:10px;color:var(--muted);margin-top:14px;line-height:1.9}
+.footer-grid a:not(.brand){display:block;color:var(--muted);font-size:10px;margin:10px 0}
+.footer-grid a:hover{color:#e49bff}
+.footer-bottom{
+ margin-top:30px;padding-top:17px;border-top:1px solid var(--border);
+ display:flex;justify-content:space-between;gap:12px;
+ color:#89829d;font-size:9px
+}
+
+/* Floating support */
+.floating{
+ position:fixed;right:17px;bottom:20px;z-index:90;
+ display:flex;flex-direction:column;gap:10px
+}
+.floating a{
+ width:48px;height:48px;border-radius:50%;
+ display:grid;place-items:center;font-size:21px;
+ box-shadow:0 5px 20px #0009;transition:.25s
+}
+.floating a:hover{transform:scale(1.12)}
+.wa{background:#16bd69}
+.tg{background:#168de0}
+
+/* Toast */
+.toast{
+ position:fixed;left:50%;bottom:25px;z-index:200;
+ transform:translate(-50%,20px);opacity:0;
+ background:#24133f;border:1px solid #ad61ff;
+ border-radius:12px;padding:12px 20px;
+ font-size:11px;pointer-events:none;transition:.3s;
+ text-align:center;max-width:90%
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* Scroll animation */
+.reveal{opacity:0;transform:translateY(25px);transition:.7s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:1000px){
+ .nav-links{gap:12px}
+ .nav-links a{font-size:10px}
+ .category-grid{grid-template-columns:repeat(3,1fr)}
+ .product-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:680px){
+ .container{width:92%}
+ .navbar{min-height:67px}
+ .brand-name{font-size:13px}
+ .logo-mark{width:38px;height:38px;font-size:24px}
+ .menu{display:block;margin-left:auto}
+ .nav-links{
+  display:none;position:absolute;top:67px;left:0;width:100%;
+  padding:15px 5%;background:#100b22;
+  flex-direction:column;align-items:stretch;
+  border-bottom:1px solid var(--border)
+ }
+ .nav-links.open{display:flex}
+ .nav-links a{padding:12px;border-bottom:1px solid var(--border);font-size:12px}
+ .nav-actions .login{display:none}
+ .nav-actions .btn{padding:10px 12px;font-size:9px}
+ .hero{grid-template-columns:1fr;padding:48px 0 40px;gap:15px}
+ .hero h1{font-size:43px}
+ .hero-content>p{font-size:12px}
+ .hero-stats{gap:17px;margin-top:28px}
+ .hero-visual{min-height:310px}
+ .main-device{width:230px;min-height:205px}
+ .visual-ring{height:130px}
+ .search-section{margin-top:0}
+ .search-box{padding-left:13px}
+ .search-box input{font-size:10px}
+ .search-box button{padding:10px 14px;font-size:10px}
+ .section{padding-top:60px}
+ .section-head h2{font-size:22px}
+ .category-grid{grid-template-columns:repeat(2,1fr);gap:9px}
+ .category-card{padding:12px;min-height:80px;gap:8px}
+ .category-card .emoji{font-size:22px}
+ .category-card strong{font-size:10px}
+ .category-card small{font-size:8px}
+ .category-card b{font-size:14px}
+ .product-grid{gap:10px}
+ .product-art{height:125px;font-size:43px}
+ .product-info{padding:11px}
+ .product-info h3{font-size:12px}
+ .product-info p{font-size:9px}
+ .product-bottom a,.product-bottom span{font-size:8px}
+ .services-grid{grid-template-columns:1fr}
+ .service-card{padding:20px}
+ .feature{grid-template-columns:1fr;padding:25px;margin-top:55px}
+ .feature h2{font-size:29px}
+ .feature-art{min-height:150px}
+ .feature-M{font-size:85px}
+ .contact-grid{grid-template-columns:1fr}
+ .newsletter{padding:23px;flex-direction:column;align-items:stretch}
+ .newsletter form{width:100%;max-width:none}
+ .newsletter h3{font-size:18px}
+ .newsletter input{font-size:9px}
+ .footer-grid{grid-template-columns:repeat(2,1fr);gap:25px 15px}
+ .footer-grid>div:first-child{grid-column:span 2}
+ .footer-bottom{flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+
+<body>
+<div class="ambient"></div>
+
+<div class="topbar">
+ 🎁 Welcome to MONORANJON — Explore Your Digital World
+ <a href="#marketplace">Explore Now →</a>
+</div>
+
+<header>
+ <div class="container navbar">
+  <a href="#home" class="brand">
+   <div class="logo-mark">M</div>
+   <div>
+    <div class="brand-name">MONO<span>RANJON</span></div>
+    <small>Explore • Discover • Create</small>
+   </div>
+  </a>
+
+  <button class="menu" id="menu" aria-label="Toggle menu">☰</button>
+
+  <nav class="nav-links" id="nav">
+   <a href="#home">Home</a>
+   <a href="#marketplace">Marketplace</a>
+   <a href="#services">Services</a>
+   <a href="#portfolio">Portfolio</a>
+   <a href="#about">About</a>
+   <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="nav-actions">
+   <a class="btn login" href="#contact">Login</a>
+   <a class="btn btn-primary" href="#marketplace">Get Started ↗</a>
+  </div>
+ </div>
+</header>
+
+<main>
+<div class="container">
+
+<!-- HERO -->
+<section class="hero" id="home">
+ <div class="hero-content">
+  <span class="eyebrow"><span class="dot"></span> WELCOME TO MONORANJON ✦</span>
+
+  <h1>Your Ultimate<br><span class="gradient">Digital Destination</span></h1>
+
+  <p>
+   Discover games, apps, software, websites and more.
+   Turn your ideas into reality with MONORANJON.
+  </p>
+
+  <div class="hero-buttons">
+   <a href="#marketplace" class="btn btn-primary">Explore Marketplace →</a>
+   <a href="#services" class="btn">Discover Services ↗</a>
   </div>
 
-  <header class="header">
-    <a class="brand" href="#home">
-      <span class="brand-icon">M</span>
-      <span class="brand-text">
-        <strong>MONORANJON</strong>
-        <small>Explore • Discover • Create</small>
-      </span>
+  <div class="hero-stats">
+   <div class="stat">
+    <span class="stat-icon">🎮</span>
+    <div><strong>Digital</strong><small>Products</small></div>
+   </div>
+   <div class="stat">
+    <span class="stat-icon">💎</span>
+    <div><strong>Creative</strong><small>Solutions</small></div>
+   </div>
+   <div class="stat">
+    <span class="stat-icon">⚡</span>
+    <div><strong>24/7</strong><small>Contact Support</small></div>
+   </div>
+  </div>
+ </div>
+
+ <div class="hero-visual">
+  <div class="visual-glow"></div>
+  <div class="visual-ring"></div>
+  <div class="visual-ring two"></div>
+  <div class="float-icon fi1">🎮</div>
+  <div class="float-icon fi2">🌐</div>
+  <div class="float-icon fi3">💎</div>
+  <div class="float-icon fi4">🚀</div>
+
+  <div class="main-device">
+   <div class="device-logo">M</div>
+   <h2>MONORANJON</h2>
+   <p>Explore • Discover • Create</p>
+   <div class="device-line"></div>
+  </div>
+  <div class="visual-caption">A WORLD OF DIGITAL POSSIBILITIES</div>
+ </div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-section">
+ <div class="search-box">
+  <span class="search-icon">⌕</span>
+  <input id="search" type="search" placeholder="Search games, apps, software, websites...">
+  <button id="searchButton">Search</button>
+ </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="section reveal" id="categories">
+ <div class="section-head">
+  <div>
+   <span class="section-kicker">DISCOVER SOMETHING NEW</span>
+   <h2>Explore Categories</h2>
+   <p>Find the digital products you are looking for.</p>
+  </div>
+  <a class="view-link" href="#marketplace">View All →</a>
+ </div>
+
+ <div class="category-grid">
+  <a class="category-card cat1" href="#marketplace" data-category="Games">
+   <span class="emoji">🎮</span>
+   <div><strong>Games</strong><small>Play & Enjoy</small></div><b>→</b>
+  </a>
+  <a class="category-card cat2" href="#marketplace" data-category="Apps">
+   <span class="emoji">📱</span>
+   <div><strong>Apps</strong><small>Smart Applications</small></div><b>→</b>
+  </a>
+  <a class="category-card cat3" href="#marketplace" data-category="Software">
+   <span class="emoji">💻</span>
+   <div><strong>Software</strong><small>Powerful Tools</small></div><b>→</b>
+  </a>
+  <a class="category-card cat4" href="#marketplace" data-category="Websites">
+   <span class="emoji">🌐</span>
+   <div><strong>Websites</strong><small>Digital Creations</small></div><b>→</b>
+  </a>
+  <a class="category-card cat5" href="#marketplace" data-category="Design">
+   <span class="emoji">🎨</span>
+   <div><strong>Design</strong><small>Creative Design</small></div><b>→</b>
+  </a>
+ </div>
+</section>
+
+<!-- MARKETPLACE -->
+<section class="section reveal" id="marketplace">
+ <div class="section-head">
+  <div>
+   <span class="section-kicker">HANDPICKED FOR YOU</span>
+   <h2>Trending Products 🔥</h2>
+   <p>Explore our digital marketplace collection.</p>
+  </div>
+  <a href="#marketplace" class="view-link" id="viewAll">View All →</a>
+ </div>
+
+ <div class="filters">
+  <button class="active" data-filter="All">All</button>
+  <button data-filter="Games">Games</button>
+  <button data-filter="Apps">Apps</button>
+  <button data-filter="Software">Software</button>
+  <button data-filter="Websites">Websites</button>
+  <button data-filter="Design">Design</button>
+ </div>
+
+ <div class="product-grid" id="productGrid">
+  <article class="product-card" data-category="Games" data-name="gaming collection">
+   <div class="product-art art-game">
+    <span class="product-label">POPULAR</span><span>🎮</span>
+   </div>
+   <div class="product-info">
+    <small>GAMES</small>
+    <h3>Gaming Collection</h3>
+    <p>Discover digital gaming products.</p>
+    <div class="product-bottom"><span>Explore collection</span><a href="#contact">Details →</a></div>
+   </div>
+  </article>
+
+  <article class="product-card" data-category="Apps" data-name="mobile applications">
+   <div class="product-art art-app">
+    <span class="product-label">NEW</span><span>📱</span>
+   </div>
+   <div class="product-info">
+    <small>APPS</small>
+    <h3>Mobile Applications</h3>
+    <p>Discover useful mobile applications.</p>
+    <div class="product-bottom"><span>Explore collection</span><a href="#contact">Details →</a></div>
+   </div>
+  </article>
+
+  <article class="product-card" data-category="Software" data-name="creative software tools">
+   <div class="product-art art-software">
+    <span class="product-label">FEATURED</span><span>💻</span>
+   </div>
+   <div class="product-info">
+    <small>SOFTWARE</small>
+    <h3>Creative Software</h3>
+    <p>Explore digital productivity tools.</p>
+    <div class="product-bottom"><span>Explore collection</span><a href="#contact">Details →</a></div>
+   </div>
+  </article>
+
+  <article class="product-card" data-category="Websites" data-name="website templates">
+   <div class="product-art art-web">
+    <span class="product-label">POPULAR</span><span>🌐</span>
+   </div>
+   <div class="product-info">
+    <small>WEBSITES</small>
+    <h3>Website Templates</h3>
+    <p>Explore modern website resources.</p>
+    <div class="product-bottom"><span>Explore collection</span><a href="#contact">Details →</a></div>
+   </div>
+  </article>
+
+  <article class="product-card" data-category="Design" data-name="creative design">
+   <div class="product-art art-game">
+    <span class="product-label">CREATIVE</span><span>🎨</span>
+   </div>
+   <div class="product-info">
+    <small>DESIGN</small>
+    <h3>Creative Design</h3>
+    <p>Explore graphics and design resources.</p>
+    <div class="product-bottom"><span>Explore collection</span><a href="#contact">Details →</a></div>
+   </div>
+  </article>
+ </div>
+ <div class="empty-message" id="emptyMessage">No matching products found.</div>
+</section>
+
+<!-- SERVICES -->
+<section class="section reveal" id="services">
+ <div class="section-head">
+  <div>
+   <span class="section-kicker">WHAT WE CAN OFFER</span>
+   <h2>Our Digital Services</h2>
+   <p>Creative digital solutions in one place.</p>
+  </div>
+ </div>
+
+ <div class="services-grid">
+  <article class="service-card">
+   <div class="service-icon">🌐</div>
+   <h3>Website Development</h3>
+   <p>Modern business websites, landing pages and custom web experiences.</p>
+   <a href="https://wa.me/8801845077415" target="_blank" rel="noopener">Discuss Project →</a>
+  </article>
+
+  <article class="service-card">
+   <div class="service-icon">📱</div>
+   <h3>App Development</h3>
+   <p>Android app concepts, user interfaces and digital application projects.</p>
+   <a href="https://wa.me/8801845077415" target="_blank" rel="noopener">Discuss Project →</a>
+  </article>
+
+  <article class="service-card">
+   <div class="service-icon">🎨</div>
+   <h3>Graphics & Branding</h3>
+   <p>Logo concepts, banners and creative branding materials.</p>
+   <a href="https://wa.me/8801845077415" target="_blank" rel="noopener">Discuss Project →</a>
+  </article>
+
+  <article class="service-card">
+   <div class="service-icon">🖥️</div>
+   <h3>Hosting Solutions</h3>
+   <p>Website hosting project setup and deployment assistance.</p>
+   <a href="https://wa.me/8801845077415" target="_blank" rel="noopener">Discuss Project →</a>
+  </article>
+
+  <article class="service-card">
+   <div class="service-icon">🛒</div>
+   <h3>E-commerce Websites</h3>
+   <p>Online store designs and digital marketplace experiences.</p>
+   <a href="https://wa.me/8801845077415" target="_blank" rel="noopener">Discuss Project →</a>
+  </article>
+
+  <article class="service-card">
+   <div class="service-icon">⚙️</div>
+   <h3>Custom Digital Projects</h3>
+   <p>Explore custom web tools, creative concepts and digital solutions.</p>
+   <a href="https://wa.me/8801845077415" target="_blank" rel="noopener">Discuss Project →</a>
+  </article>
+ </div>
+</section>
+
+<!-- FEATURE BANNER -->
+<section class="feature reveal" id="portfolio">
+ <div>
+  <span class="eyebrow">✦ BUILD SOMETHING AMAZING</span>
+  <h2>Your Ideas.<br><span class="gradient">Our Digital World.</span></h2>
+  <p>Discover creative products and digital services with MONORANJON.</p>
+  <a class="btn btn-primary" href="#contact">Start Your Project →</a>
+ </div>
+ <div class="feature-art"><div class="feature-M">M</div></div>
+</section>
+
+<!-- ABOUT -->
+<section class="about reveal" id="about">
+ <span class="section-kicker">WHO WE ARE</span>
+ <h2>Welcome to <span class="gradient">MONORANJON</span></h2>
+ <p>
+  MONORANJON is a digital marketplace and creative service platform concept.
+  Our vision is to bring digital products, technology resources and creative
+  services together through one modern online destination.
+ </p>
+</section>
+
+<!-- CONTACT -->
+<section class="section reveal" id="contact">
+ <div class="section-head">
+  <div>
+   <span class="section-kicker">LET'S CONNECT</span>
+   <h2>Contact MONORANJON</h2>
+   <p>Have a question or a project idea? Contact us.</p>
+  </div>
+ </div>
+
+ <div class="contact-grid">
+  <div class="contact-card">
+   <span class="contact-icon">🟢</span>
+   <div><strong>WhatsApp</strong><small>01845077415</small></div>
+   <a href="https://wa.me/8801845077415" target="_blank" rel="noopener">Message →</a>
+  </div>
+
+  <div class="contact-card">
+   <span class="contact-icon">✈️</span>
+   <div><strong>Telegram</strong><small>@Monoranjonfire</small></div>
+   <a href="https://t.me/Monoranjonfire" target="_blank" rel="noopener">Connect →</a>
+  </div>
+
+  <div class="contact-card social-soon">
+   <span class="contact-icon">📘</span>
+   <div><strong>Facebook</strong><small>Official link coming soon</small></div>
+   <a href="#contact">Coming Soon</a>
+  </div>
+
+  <div class="contact-card social-soon">
+   <span class="contact-icon">▶️</span>
+   <div><strong>YouTube</strong><small>Official channel coming soon</small></div>
+   <a href="#contact">Coming Soon</a>
+  </div>
+ </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter reveal">
+ <div>
+  <h3>Stay Connected ✨</h3>
+  <p>Get updates about our latest digital projects.</p>
+ </div>
+ <form id="newsletterForm">
+  <input type="email" placeholder="Your email address" required>
+  <button type="submit">Subscribe →</button>
+ </form>
+</section>
+
+</div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+ <div class="container">
+  <div class="footer-grid">
+   <div>
+    <a href="#home" class="brand">
+     <div class="logo-mark">M</div>
+     <div>
+      <div class="brand-name">MONO<span>RANJON</span></div>
+      <small>Explore • Discover • Create</small>
+     </div>
     </a>
+    <p>Your destination for digital products, creative ideas and technology services.</p>
+   </div>
 
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+   <div>
+    <h4>Marketplace</h4>
+    <a href="#marketplace">Games</a>
+    <a href="#marketplace">Apps</a>
+    <a href="#marketplace">Software</a>
+    <a href="#marketplace">Websites</a>
+   </div>
 
-    <nav class="nav" id="nav">
-      <a class="active" href="#home">Home</a>
-      <a href="#categories">Explore</a>
-      <a href="#products">Products</a>
-      <a href="#featured">Featured</a>
-      <a href="#about">About</a>
-    </nav>
+   <div>
+    <h4>Company</h4>
+    <a href="#about">About Us</a>
+    <a href="#services">Services</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#contact">Contact</a>
+   </div>
 
-    <div class="header-actions">
-      <button class="icon-btn" id="headerSearch" aria-label="Search">⌕</button>
-      <a class="login-btn" href="#account">Login</a>
-      <a class="signup-btn" href="#account">Get Started ↗</a>
-    </div>
-  </header>
+   <div>
+    <h4>Follow & Contact</h4>
+    <a href="https://wa.me/8801845077415" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://t.me/Monoranjonfire" target="_blank" rel="noopener">Telegram</a>
+    <a href="#contact">Facebook — Coming Soon</a>
+    <a href="#contact">YouTube — Coming Soon</a>
+   </div>
+  </div>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="hero-glow"></div>
-      <div class="hero-content">
-        <div class="eyebrow"><span class="live-dot"></span> YOUR DIGITAL DESTINATION</div>
-        <h1>Welcome to<br><span>MONORANJON</span></h1>
-        <p>
-          Discover amazing games, powerful apps, software and
-          digital creations. Everything you need, all in one place.
-        </p>
-        <div class="hero-actions">
-          <a href="#products" class="primary-btn">Explore Marketplace ↗</a>
-          <a href="#categories" class="secondary-btn">Discover Categories</a>
-        </div>
-        <div class="hero-stats">
-          <div><strong>Digital</strong><small>Products</small></div>
-          <div><strong>Easy</strong><small>Discovery</small></div>
-          <div><strong>One Place</strong><small>Everything</small></div>
-        </div>
-      </div>
+  <div class="footer-bottom">
+   <span>© <span id="year"></span> MONORANJON. All Rights Reserved.</span>
+   <span>Explore • Discover • Create ✦</span>
+  </div>
+ </div>
+</footer>
 
-      <div class="hero-art">
-        <div class="orbit orbit-one"></div>
-        <div class="orbit orbit-two"></div>
-        <div class="float-icon float-one">🎮</div>
-        <div class="float-icon float-two">💎</div>
-        <div class="float-icon float-three">🌐</div>
-        <div class="float-icon float-four">🚀</div>
-        <div class="digital-card">
-          <div class="card-logo">M</div>
-          <h2>MONORANJON</h2>
-          <p>Explore Your Creativity</p>
-          <div class="card-line"></div>
-          <span class="card-caption">YOUR DIGITAL WORLD</span>
-        </div>
-      </div>
-    </section>
+<!-- Floating contact buttons -->
+<div class="floating">
+ <a class="wa" href="https://wa.me/8801845077415"
+    target="_blank" rel="noopener" aria-label="WhatsApp">◉</a>
+ <a class="tg" href="https://t.me/Monoranjonfire"
+    target="_blank" rel="noopener" aria-label="Telegram">✈</a>
+</div>
 
-    <section class="search-section">
-      <div class="search-box">
-        <span>⌕</span>
-        <input id="searchInput" type="search"
-          placeholder="Search games, apps, software, websites...">
-        <button id="searchButton">Search</button>
-      </div>
-    </section>
+<div class="toast" id="toast"></div>
 
-    <section class="section" id="categories">
-      <div class="section-heading">
-        <div>
-          <span class="section-label">DISCOVER MORE</span>
-          <h2>Explore Categories</h2>
-          <p>Find exactly what you are looking for.</p>
-        </div>
-        <a href="#products" class="view-link">Explore All →</a>
-      </div>
+<script>
+const menu = document.getElementById("menu");
+const nav = document.getElementById("nav");
 
-      <div class="category-grid">
-        <button class="category-card purple" data-category="Games">
-          <span class="category-icon">🎮</span>
-          <span><strong>Games</strong><small>Play & Enjoy</small></span>
-          <b>→</b>
-        </button>
-        <button class="category-card blue" data-category="Apps">
-          <span class="category-icon">📱</span>
-          <span><strong>Apps</strong><small>Smart Applications</small></span>
-          <b>→</b>
-        </button>
-        <button class="category-card green" data-category="Software">
-          <span class="category-icon">💻</span>
-          <span><strong>Software</strong><small>Explore Tools</small></span>
-          <b>→</b>
-        </button>
-        <button class="category-card orange" data-category="Websites">
-          <span class="category-icon">🌐</span>
-          <span><strong>Websites</strong><small>Digital Creations</small></span>
-          <b>→</b>
-        </button>
-      </div>
-    </section>
+menu.addEventListener("click",()=>{
+ nav.classList.toggle("open");
+ menu.textContent=nav.classList.contains("open")?"✕":"☰";
+});
 
-    <section class="section products-section" id="products">
-      <div class="section-heading">
-        <div>
-          <span class="section-label">HANDPICKED FOR YOU</span>
-          <h2>Trending Products <span class="fire">🔥</span></h2>
-          <p>Explore our featured digital collection.</p>
-        </div>
-        <a href="#products" class="view-link" id="resetProducts">View All →</a>
-      </div>
+nav.querySelectorAll("a").forEach(a=>{
+ a.addEventListener("click",()=>{
+  nav.classList.remove("open");
+  menu.textContent="☰";
+ });
+});
 
-      <div class="filter-bar">
-        <button class="filter active" data-filter="All">All Products</button>
-        <button class="filter" data-filter="Games">Games</button>
-        <button class="filter" data-filter="Apps">Apps</button>
-        <button class="filter" data-filter="Software">Software</button>
-        <button class="filter" data-filter="Websites">Websites</button>
-      </div>
+// Product search and filtering
+const search=document.getElementById("search");
+const cards=[...document.querySelectorAll(".product-card")];
+const filters=[...document.querySelectorAll("[data-filter]")];
+const empty=document.getElementById("emptyMessage");
+const grid=document.getElementById("productGrid");
+let activeFilter="All";
 
-      <div class="product-grid" id="productGrid">
-        <article class="product-card" data-category="Games" data-name="gaming collection">
-          <div class="product-image game-image">
-            <span class="product-tag">POPULAR</span>
-            <span class="product-emoji">🎮</span>
-            <button class="heart-btn" aria-label="Save product">♡</button>
-          </div>
-          <div class="product-info">
-            <span class="product-category">GAMES</span>
-            <h3>Gaming Collection</h3>
-            <p>Discover digital gaming experiences.</p>
-            <div class="product-bottom">
-              <strong>Explore</strong><a href="#contact">View Details ↗</a>
-            </div>
-          </div>
-        </article>
+function updateProducts(){
+ const q=search.value.trim().toLowerCase();
+ let count=0;
 
-        <article class="product-card" data-category="Apps" data-name="mobile app collection">
-          <div class="product-image app-image">
-            <span class="product-tag">NEW</span>
-            <span class="product-emoji">📱</span>
-            <button class="heart-btn" aria-label="Save product">♡</button>
-          </div>
-          <div class="product-info">
-            <span class="product-category">APPS</span>
-            <h3>Mobile Apps</h3>
-            <p>Explore useful digital applications.</p>
-            <div class="product-bottom">
-              <strong>Explore</strong><a href="#contact">View Details ↗</a>
-            </div>
-          </div>
-        </article>
+ cards.forEach(card=>{
+  const category=card.dataset.category;
+  const name=card.dataset.name.toLowerCase();
+  const title=card.querySelector("h3").textContent.toLowerCase();
 
-        <article class="product-card" data-category="Software" data-name="creative software tools">
-          <div class="product-image software-image">
-            <span class="product-tag">FEATURED</span>
-            <span class="product-emoji">💻</span>
-            <button class="heart-btn" aria-label="Save product">♡</button>
-          </div>
-          <div class="product-info">
-            <span class="product-category">SOFTWARE</span>
-            <h3>Creative Software</h3>
-            <p>Tools for your creative projects.</p>
-            <div class="product-bottom">
-              <strong>Explore</strong><a href="#contact">View Details ↗</a>
-            </div>
-          </div>
-        </article>
+  const categoryMatch=activeFilter==="All"||category===activeFilter;
+  const searchMatch=!q||name.includes(q)||title.includes(q)||category.toLowerCase().includes(q);
+  const show=categoryMatch&&searchMatch;
 
-        <article class="product-card" data-category="Websites" data-name="website templates">
-          <div class="product-image website-image">
-            <span class="product-tag">POPULAR</span>
-            <span class="product-emoji">🌐</span>
-            <button class="heart-btn" aria-label="Save product">♡</button>
-          </div>
-          <div class="product-info">
-            <span class="product-category">WEBSITES</span>
-            <h3>Website Templates</h3>
-            <p>Discover ready-to-customize designs.</p>
-            <div class="product-bottom">
-              <strong>Explore</strong><a href="#contact">View Details ↗</a>
-            </div>
-          </div>
-        </article>
-      </div>
-      <p class="empty-message" id="emptyMessage" hidden>No matching products found. Try another search.</p>
-    </section>
+  card.hidden=!show;
+  if(show)count++;
+ });
 
-    <section class="featured-section" id="featured">
-      <div class="featured-copy">
-        <span class="section-label">THE MONORANJON EXPERIENCE</span>
-        <h2>Your Next Digital<br><span>Discovery Starts Here.</span></h2>
-        <p>Explore digital products, find new ideas and bring your creativity to life with MONORANJON.</p>
-        <a href="#products" class="primary-btn">Start Exploring ↗</a>
-      </div>
-      <div class="featured-visual">
-        <div class="feature-orb">M</div>
-        <div class="feature-chip chip-a">✦ Digital Products</div>
-        <div class="feature-chip chip-b">⚡ Easy Discovery</div>
-        <div class="feature-chip chip-c">🌐 Your World</div>
-      </div>
-    </section>
+ empty.style.display=count?"none":"block";
+ grid.style.display=count?"grid":"none";
+}
 
-    <section class="section about-section" id="about">
-      <span class="section-label">ABOUT US</span>
-      <h2>One Platform. Endless Possibilities.</h2>
-      <p>MONORANJON is a digital marketplace concept designed to bring games, apps, software and website resources together in one convenient destination.</p>
-    </section>
+filters.forEach(button=>{
+ button.addEventListener("click",()=>{
+  activeFilter=button.dataset.filter;
+  filters.forEach(b=>b.classList.toggle("active",b===button));
+  updateProducts();
+ });
+});
 
-    <section class="newsletter" id="contact">
-      <div>
-        <span class="section-label">STAY CONNECTED</span>
-        <h2>Stay in the Digital Loop.</h2>
-        <p>Get updates about new products and collections.</p>
-      </div>
-      <form id="newsletterForm">
-        <input type="email" placeholder="Enter your email address" required>
-        <button type="submit">Subscribe ↗</button>
-      </form>
-    </section>
-  </main>
+document.querySelectorAll(".category-card").forEach(card=>{
+ card.addEventListener("click",()=>{
+  activeFilter=card.dataset.category;
+  filters.forEach(b=>b.classList.toggle("active",b.dataset.filter===activeFilter));
+  updateProducts();
+ });
+});
 
-  <footer class="footer">
-    <div class="footer-main">
-      <div class="footer-brand">
-        <a class="brand" href="#home">
-          <span class="brand-icon">M</span>
-          <span class="brand-text"><strong>MONORANJON</strong><small>Explore • Discover • Create</small></span>
-        </a>
-        <p>Your destination for digital products and creative discoveries.</p>
-      </div>
-      <div><h4>Marketplace</h4><a href="#products">Games</a><a href="#products">Apps</a><a href="#products">Software</a><a href="#products">Websites</a></div>
-      <div><h4>Explore</h4><a href="#categories">Categories</a><a href="#featured">Featured</a><a href="#about">About Us</a><a href="#contact">Contact</a></div>
-      <div><h4>Account</h4><a href="#account">Login</a><a href="#account">Register</a><a href="#contact">Support</a></div>
-    </div>
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> MONORANJON. All rights reserved.</span>
-      <span>Made for Digital Discovery ✦</span>
-    </div>
-  </footer>
+search.addEventListener("input",updateProducts);
+document.getElementById("searchButton").addEventListener("click",()=>{
+ activeFilter="All";
+ filters.forEach(b=>b.classList.toggle("active",b.dataset.filter==="All"));
+ updateProducts();
+});
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+document.getElementById("viewAll").addEventListener("click",()=>{
+ activeFilter="All";
+ search.value="";
+ filters.forEach(b=>b.classList.toggle("active",b.dataset.filter==="All"));
+ updateProducts();
+});
 
-  <script src="app.js"></script>
+// Newsletter demo
+const toast=document.getElementById("toast");
+let toastTimer;
+function showToast(message){
+ toast.textContent=message;
+ toast.classList.add("show");
+ clearTimeout(toastTimer);
+ toastTimer=setTimeout(()=>toast.classList.remove("show"),2800);
+}
+
+document.getElementById("newsletterForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ showToast("Newsletter service is not connected yet.");
+ e.target.reset();
+});
+
+// Scroll reveal
+const revealObserver=new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{
+  if(entry.isIntersecting){
+   entry.target.classList.add("visible");
+   revealObserver.unobserve(entry.target);
+  }
+ });
+},{threshold:.12});
+
+document.querySelectorAll(".reveal").forEach(el=>revealObserver.observe(el));
+
+// Footer year
+document.getElementById("year").textContent=new Date().getFullYear();
+
+updateProducts();
+</script>
 </body>
 </html>
