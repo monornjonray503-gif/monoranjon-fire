@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101027">
+  <title>MONORANJON — Digital World</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <a class="logo" href="/">MONO<span>RANJON</span></a>
+    <button id="menuBtn" class="menu-btn">☰</button>
+    <nav id="nav">
+      <a href="#home">Home</a>
+      <a href="#explore">Explore</a>
+      <a href="#upload">Upload</a>
+      <a href="#account">Account</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <span class="tag">YOUR DIGITAL WORLD</span>
+        <h1>Welcome to <span>MONORANJON</span></h1>
+        <p>Discover games, apps, websites and digital creations in one place.</p>
+        <a href="#explore" class="primary-btn">Explore Now →</a>
+      </div>
+    </section>
+
+    <section class="section" id="explore">
+      <h2>Explore Content</h2>
+      <p class="muted">Approved content from the MONORANJON community.</p>
+      <div id="contentList" class="content-grid">
+        <p>Loading content...</p>
+      </div>
+    </section>
+
+    <section class="section upload-section" id="upload">
+      <h2>Share Your Creation</h2>
+      <p class="muted">Sign in and upload your digital project.</p>
+
+      <div class="panel">
+        <label>Project title</label>
+        <input id="title" type="text" placeholder="Enter project name">
+
+        <label>Category</label>
+        <select id="category">
+          <option value="game">Game</option>
+          <option value="app">App</option>
+          <option value="website">Website</option>
+          <option value="other">Other</option>
+        </select>
+
+        <label>Description</label>
+        <textarea id="description" placeholder="Describe your project"></textarea>
+
+        <label>Select file</label>
+        <input id="file" type="file"
+          accept=".zip,.html,.pdf,.png,.jpg,.jpeg,.mp4">
+
+        <button id="uploadBtn" class="primary-btn full">
+          Upload Project
+        </button>
+        <p id="uploadMessage" class="message"></p>
+        <small>Maximum file size: 20 MB. Uploaded files require approval.</small>
+      </div>
+    </section>
+
+    <section class="section" id="account">
+      <h2>Your Account</h2>
+      <div class="panel">
+        <p id="userStatus">You are not signed in.</p>
+        <input id="email" type="email" placeholder="Email address">
+        <input id="password" type="password" placeholder="Password">
+        <div class="button-row">
+          <button id="registerBtn" class="primary-btn">Register</button>
+          <button id="loginBtn" class="secondary-btn">Login</button>
+        </div>
+        <button id="googleBtn" class="google-btn">Continue with Google</button>
+        <button id="logoutBtn" class="secondary-btn full hidden">Logout</button>
+        <p id="authMessage" class="message"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <h3>MONORANJON</h3>
+    <p>Explore. Create. Share.</p>
+    <small>© 2026 MONORANJON. All rights reserved.</small>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
