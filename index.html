@@ -3,220 +3,269 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#08071b">
-  <meta name="description" content="MONORANJON - Explore games, apps, websites and digital creations.">
-  <title>MONORANJON — Explore • Download • Grow</title>
+  <meta name="theme-color" content="#090817">
+  <meta name="description" content="MONORANJON - Discover games, apps, software and digital products.">
+  <title>MONORANJON — Digital Marketplace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="topbar">
-  <a class="brand" href="index.html">
-    <span class="brand-icon">M</span>
-    <span><strong>MONO<span>RANJON</span></strong><small>Explore · Download · Grow</small></span>
-  </a>
-
-  <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
-
-  <nav class="nav" id="mainNav">
-    <a class="active" href="#home">⌂ Home</a>
-    <a href="#categories">🎮 Games</a>
-    <a href="#categories">▦ Apps</a>
-    <a href="#categories">◎ Websites</a>
-    <a href="#upload">☁ Uploads</a>
-    <a href="#account">♙ Dashboard</a>
-  </nav>
-
-  <div class="top-actions">
-    <button class="icon-btn" id="searchFocus" aria-label="Search">⌕</button>
-    <button class="outline-btn" id="loginOpen">Login</button>
-    <button class="primary-btn" id="registerOpen">Register</button>
-    <button class="outline-btn hidden" id="logoutBtn">Logout</button>
+  <div class="announcement">
+    <span>✦</span> Welcome to MONORANJON — Explore Your Digital World
+    <span class="announcement-link">Discover Now →</span>
   </div>
-</header>
 
-<main>
-  <section class="hero" id="home">
-    <div class="hero-copy">
-      <p class="eyebrow">WELCOME TO YOUR DIGITAL WORLD</p>
-      <h1>Welcome to<br><span>MONORANJON</span></h1>
-      <p class="hero-description">
-        Your one-stop platform for games, apps, websites and digital creations.
-        Discover something amazing today.
-      </p>
-      <div class="hero-buttons">
-        <a class="primary-btn large-btn" href="#categories">Explore Now <span>→</span></a>
-        <a class="watch-link" href="#about"><span class="play-icon">▶</span> Discover MONORANJON</a>
-      </div>
+  <header class="header">
+    <a class="brand" href="#home">
+      <span class="brand-icon">M</span>
+      <span class="brand-text">
+        <strong>MONORANJON</strong>
+        <small>Explore • Discover • Create</small>
+      </span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+
+    <nav class="nav" id="nav">
+      <a class="active" href="#home">Home</a>
+      <a href="#categories">Explore</a>
+      <a href="#products">Products</a>
+      <a href="#featured">Featured</a>
+      <a href="#about">About</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="headerSearch" aria-label="Search">⌕</button>
+      <a class="login-btn" href="#account">Login</a>
+      <a class="signup-btn" href="#account">Get Started ↗</a>
     </div>
-    <div class="hero-art">
-      <div class="orbit orbit-one"></div>
-      <div class="orbit orbit-two"></div>
-      <div class="floating-symbol symbol-game">🎮</div>
-      <div class="floating-symbol symbol-app">🤖</div>
-      <div class="floating-symbol symbol-web">🌐</div>
-      <div class="laptop">
-        <div class="laptop-screen">
-          <div class="screen-logo">M</div>
-          <p>MONORANJON</p>
-          <small>Explore your creativity</small>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <div class="eyebrow"><span class="live-dot"></span> YOUR DIGITAL DESTINATION</div>
+        <h1>Welcome to<br><span>MONORANJON</span></h1>
+        <p>
+          Discover amazing games, powerful apps, software and
+          digital creations. Everything you need, all in one place.
+        </p>
+        <div class="hero-actions">
+          <a href="#products" class="primary-btn">Explore Marketplace ↗</a>
+          <a href="#categories" class="secondary-btn">Discover Categories</a>
         </div>
-        <div class="laptop-base"></div>
+        <div class="hero-stats">
+          <div><strong>Digital</strong><small>Products</small></div>
+          <div><strong>Easy</strong><small>Discovery</small></div>
+          <div><strong>One Place</strong><small>Everything</small></div>
+        </div>
       </div>
-      <div class="floating-symbol symbol-code">⌘</div>
-    </div>
-  </section>
 
-  <section class="search-wrap">
-    <form class="search-box" id="searchForm">
-      <span>⌕</span>
-      <input id="searchInput" type="search" placeholder="Search games, apps, websites...">
-      <button class="primary-btn" type="submit">Search</button>
-    </form>
-  </section>
-
-  <section class="section" id="categories">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">DISCOVER MORE</p>
-        <h2>Explore Categories</h2>
+      <div class="hero-art">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="float-icon float-one">🎮</div>
+        <div class="float-icon float-two">💎</div>
+        <div class="float-icon float-three">🌐</div>
+        <div class="float-icon float-four">🚀</div>
+        <div class="digital-card">
+          <div class="card-logo">M</div>
+          <h2>MONORANJON</h2>
+          <p>Explore Your Creativity</p>
+          <div class="card-line"></div>
+          <span class="card-caption">YOUR DIGITAL WORLD</span>
+        </div>
       </div>
-      <span class="section-note">Find your next favourite</span>
-    </div>
+    </section>
 
-    <div class="category-grid">
-      <button class="category-card purple" data-category="game">
-        <span class="category-icon">🎮</span>
-        <span><strong>Games</strong><small>Play & Enjoy</small></span>
-        <b>→</b>
-      </button>
-      <button class="category-card blue" data-category="app">
-        <span class="category-icon">🤖</span>
-        <span><strong>Apps</strong><small>Useful Applications</small></span>
-        <b>→</b>
-      </button>
-      <button class="category-card green" data-category="website">
-        <span class="category-icon">🌐</span>
-        <span><strong>Websites</strong><small>Explore Websites</small></span>
-        <b>→</b>
-      </button>
-      <button class="category-card orange" data-category="other">
-        <span class="category-icon">☁</span>
-        <span><strong>Other Files</strong><small>Share Creations</small></span>
-        <b>→</b>
-      </button>
-    </div>
-  </section>
+    <section class="search-section">
+      <div class="search-box">
+        <span>⌕</span>
+        <input id="searchInput" type="search"
+          placeholder="Search games, apps, software, websites...">
+        <button id="searchButton">Search</button>
+      </div>
+    </section>
 
-  <section class="section content-layout" id="trending">
-    <div class="main-content">
+    <section class="section" id="categories">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">COMMUNITY COLLECTION</p>
-          <h2>🔥 Trending Content</h2>
+          <span class="section-label">DISCOVER MORE</span>
+          <h2>Explore Categories</h2>
+          <p>Find exactly what you are looking for.</p>
         </div>
-        <button class="text-btn" id="showAllBtn">View All →</button>
-      </div>
-      <div class="content-grid" id="contentList">
-        <div class="empty-state">Loading content...</div>
-      </div>
-      <p class="status-message" id="contentMessage"></p>
-    </div>
-
-    <aside class="sidebar">
-      <div class="join-card" id="account">
-        <div class="join-icon">✦</div>
-        <h3 id="accountTitle">Join MONORANJON</h3>
-        <p id="accountDescription">Create an account and discover amazing digital creations.</p>
-        <button class="primary-btn full" id="sideRegister">Register Now →</button>
-        <p class="small-center" id="accountHint">Already have an account? <a href="#" id="sideLogin">Login here</a></p>
+        <a href="#products" class="view-link">Explore All →</a>
       </div>
 
-      <div class="quick-card">
-        <h3>Quick Links</h3>
-        <a href="#upload">☁ Upload File</a>
-        <a href="#categories">▦ Explore Categories</a>
-        <a href="dashboard.html">♙ My Dashboard</a>
-        <a href="support.html">◉ Help & Support</a>
+      <div class="category-grid">
+        <button class="category-card purple" data-category="Games">
+          <span class="category-icon">🎮</span>
+          <span><strong>Games</strong><small>Play & Enjoy</small></span>
+          <b>→</b>
+        </button>
+        <button class="category-card blue" data-category="Apps">
+          <span class="category-icon">📱</span>
+          <span><strong>Apps</strong><small>Smart Applications</small></span>
+          <b>→</b>
+        </button>
+        <button class="category-card green" data-category="Software">
+          <span class="category-icon">💻</span>
+          <span><strong>Software</strong><small>Explore Tools</small></span>
+          <b>→</b>
+        </button>
+        <button class="category-card orange" data-category="Websites">
+          <span class="category-icon">🌐</span>
+          <span><strong>Websites</strong><small>Digital Creations</small></span>
+          <b>→</b>
+        </button>
       </div>
-    </aside>
-  </section>
+    </section>
 
-  <section class="section upload-section" id="upload">
-    <div class="section-heading">
+    <section class="section products-section" id="products">
+      <div class="section-heading">
+        <div>
+          <span class="section-label">HANDPICKED FOR YOU</span>
+          <h2>Trending Products <span class="fire">🔥</span></h2>
+          <p>Explore our featured digital collection.</p>
+        </div>
+        <a href="#products" class="view-link" id="resetProducts">View All →</a>
+      </div>
+
+      <div class="filter-bar">
+        <button class="filter active" data-filter="All">All Products</button>
+        <button class="filter" data-filter="Games">Games</button>
+        <button class="filter" data-filter="Apps">Apps</button>
+        <button class="filter" data-filter="Software">Software</button>
+        <button class="filter" data-filter="Websites">Websites</button>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <article class="product-card" data-category="Games" data-name="gaming collection">
+          <div class="product-image game-image">
+            <span class="product-tag">POPULAR</span>
+            <span class="product-emoji">🎮</span>
+            <button class="heart-btn" aria-label="Save product">♡</button>
+          </div>
+          <div class="product-info">
+            <span class="product-category">GAMES</span>
+            <h3>Gaming Collection</h3>
+            <p>Discover digital gaming experiences.</p>
+            <div class="product-bottom">
+              <strong>Explore</strong><a href="#contact">View Details ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Apps" data-name="mobile app collection">
+          <div class="product-image app-image">
+            <span class="product-tag">NEW</span>
+            <span class="product-emoji">📱</span>
+            <button class="heart-btn" aria-label="Save product">♡</button>
+          </div>
+          <div class="product-info">
+            <span class="product-category">APPS</span>
+            <h3>Mobile Apps</h3>
+            <p>Explore useful digital applications.</p>
+            <div class="product-bottom">
+              <strong>Explore</strong><a href="#contact">View Details ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Software" data-name="creative software tools">
+          <div class="product-image software-image">
+            <span class="product-tag">FEATURED</span>
+            <span class="product-emoji">💻</span>
+            <button class="heart-btn" aria-label="Save product">♡</button>
+          </div>
+          <div class="product-info">
+            <span class="product-category">SOFTWARE</span>
+            <h3>Creative Software</h3>
+            <p>Tools for your creative projects.</p>
+            <div class="product-bottom">
+              <strong>Explore</strong><a href="#contact">View Details ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Websites" data-name="website templates">
+          <div class="product-image website-image">
+            <span class="product-tag">POPULAR</span>
+            <span class="product-emoji">🌐</span>
+            <button class="heart-btn" aria-label="Save product">♡</button>
+          </div>
+          <div class="product-info">
+            <span class="product-category">WEBSITES</span>
+            <h3>Website Templates</h3>
+            <p>Discover ready-to-customize designs.</p>
+            <div class="product-bottom">
+              <strong>Explore</strong><a href="#contact">View Details ↗</a>
+            </div>
+          </div>
+        </article>
+      </div>
+      <p class="empty-message" id="emptyMessage" hidden>No matching products found. Try another search.</p>
+    </section>
+
+    <section class="featured-section" id="featured">
+      <div class="featured-copy">
+        <span class="section-label">THE MONORANJON EXPERIENCE</span>
+        <h2>Your Next Digital<br><span>Discovery Starts Here.</span></h2>
+        <p>Explore digital products, find new ideas and bring your creativity to life with MONORANJON.</p>
+        <a href="#products" class="primary-btn">Start Exploring ↗</a>
+      </div>
+      <div class="featured-visual">
+        <div class="feature-orb">M</div>
+        <div class="feature-chip chip-a">✦ Digital Products</div>
+        <div class="feature-chip chip-b">⚡ Easy Discovery</div>
+        <div class="feature-chip chip-c">🌐 Your World</div>
+      </div>
+    </section>
+
+    <section class="section about-section" id="about">
+      <span class="section-label">ABOUT US</span>
+      <h2>One Platform. Endless Possibilities.</h2>
+      <p>MONORANJON is a digital marketplace concept designed to bring games, apps, software and website resources together in one convenient destination.</p>
+    </section>
+
+    <section class="newsletter" id="contact">
       <div>
-        <p class="eyebrow">SHARE YOUR CREATION</p>
-        <h2>Upload Your Content</h2>
+        <span class="section-label">STAY CONNECTED</span>
+        <h2>Stay in the Digital Loop.</h2>
+        <p>Get updates about new products and collections.</p>
       </div>
-      <span class="section-note">Uploads are reviewed before publication</span>
+      <form id="newsletterForm">
+        <input type="email" placeholder="Enter your email address" required>
+        <button type="submit">Subscribe ↗</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a class="brand" href="#home">
+          <span class="brand-icon">M</span>
+          <span class="brand-text"><strong>MONORANJON</strong><small>Explore • Discover • Create</small></span>
+        </a>
+        <p>Your destination for digital products and creative discoveries.</p>
+      </div>
+      <div><h4>Marketplace</h4><a href="#products">Games</a><a href="#products">Apps</a><a href="#products">Software</a><a href="#products">Websites</a></div>
+      <div><h4>Explore</h4><a href="#categories">Categories</a><a href="#featured">Featured</a><a href="#about">About Us</a><a href="#contact">Contact</a></div>
+      <div><h4>Account</h4><a href="#account">Login</a><a href="#account">Register</a><a href="#contact">Support</a></div>
     </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> MONORANJON. All rights reserved.</span>
+      <span>Made for Digital Discovery ✦</span>
+    </div>
+  </footer>
 
-    <form class="upload-form panel" id="uploadForm">
-      <div class="form-grid">
-        <label>Content Title
-          <input id="uploadTitle" type="text" maxlength="80" placeholder="Enter a title" required>
-        </label>
-        <label>Category
-          <select id="uploadCategory" required>
-            <option value="">Choose category</option>
-            <option value="game">Game</option>
-            <option value="app">App</option>
-            <option value="website">Website</option>
-            <option value="other">Other</option>
-          </select>
-        </label>
-      </div>
-      <label>Description
-        <textarea id="uploadDescription" maxlength="500" rows="3" placeholder="Describe your content..." required></textarea>
-      </label>
-      <label class="file-picker">
-        <span class="file-icon">☁</span>
-        <strong>Choose a file to upload</strong>
-        <small id="fileName">ZIP, PDF, HTML, CSS, JS, PNG, JPG — maximum 20 MB</small>
-        <input id="uploadFile" type="file" required>
-      </label>
-      <button class="primary-btn large-btn" id="uploadBtn" type="submit">Upload for Review →</button>
-      <p class="status-message" id="uploadMessage"></p>
-    </form>
-  </section>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <section class="section about-section" id="about">
-    <p class="eyebrow">ABOUT OUR PLATFORM</p>
-    <h2>Explore. Create. Share.</h2>
-    <p>MONORANJON is a community platform for discovering and sharing digital creations. Content is reviewed before it appears publicly.</p>
-  </section>
-</main>
-
-<footer class="footer">
-  <a class="brand" href="#home"><span class="brand-icon">M</span><strong>MONORANJON</strong></a>
-  <p>© 2026 MONORANJON. All rights reserved.</p>
-  <a href="support.html">Support</a>
-</footer>
-
-<!-- Authentication dialog -->
-<dialog class="auth-dialog" id="authDialog">
-  <button class="dialog-close" id="dialogClose" aria-label="Close">×</button>
-  <div class="dialog-logo">M</div>
-  <h2 id="authHeading">Welcome Back</h2>
-  <p class="muted" id="authSubheading">Login to your account</p>
-
-  <form id="authForm">
-    <label id="nameLabel" class="hidden">Your Name
-      <input id="authName" type="text" placeholder="Your name">
-    </label>
-    <label>Email
-      <input id="authEmail" type="email" placeholder="Email address" required>
-    </label>
-    <label>Password
-      <input id="authPassword" type="password" minlength="6" placeholder="At least 6 characters" required>
-    </label>
-    <button class="primary-btn full" id="authSubmit" type="submit">Login</button>
-  </form>
-  <button class="google-btn full" id="googleBtn">Continue with Google</button>
-  <p class="status-message" id="authMessage"></p>
-  <p class="small-center" id="authSwitch">New here? <a href="#" id="switchAuth">Create an account</a></p>
-</dialog>
-
-<script type="module" src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
