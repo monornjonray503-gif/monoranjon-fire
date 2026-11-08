@@ -2,312 +2,763 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080514">
-<title>MONORANJON | Digital Universe</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080713">
+<meta name="description" content="MONORANJON - Explore, Discover and Create. Your premium digital marketplace.">
+<title>MONORANJON — Digital Universe</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+  --bg:#080713;
+  --panel:#100e20;
+  --panel2:#17132a;
+  --purple:#a855f7;
+  --pink:#ec4899;
+  --cyan:#55d9ff;
+  --text:#f8f6ff;
+  --muted:#a7a2ba;
+  --border:rgba(190,140,255,.17);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+button{cursor:pointer}
+.container{width:min(1160px,92%);margin:auto}
+.glow{
+  position:fixed;width:380px;height:380px;
+  border-radius:50%;filter:blur(130px);
+  opacity:.13;pointer-events:none;z-index:-1;
+}
+.glow.one{background:#a855f7;top:100px;left:-180px}
+.glow.two{background:#06b6d4;right:-180px;top:600px}
+
+/* announcement */
+.announcement{
+  background:linear-gradient(90deg,#7026cb,#d13ba8,#7026cb);
+  text-align:center;padding:10px 12px;
+  font-size:11px;font-weight:800;letter-spacing:1px;
+}
+
+/* header */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(8,7,19,.88);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav{
+  min-height:76px;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;
+}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{
+  width:43px;height:43px;border-radius:14px;
+  background:linear-gradient(135deg,#e879f9,#9333ea,#4f46e5);
+  display:grid;place-items:center;
+  box-shadow:0 0 25px #a855f766;
+  font-size:25px;font-weight:900;
+  color:white;
+  position:relative;overflow:hidden;
+}
+.logo:after{
+  content:"";position:absolute;inset:-30%;
+  background:linear-gradient(110deg,transparent,#ffffff65,transparent);
+  transform:translateX(-100%) rotate(20deg);
+  animation:shine 4s infinite;
+}
+@keyframes shine{
+  65%,100%{transform:translateX(120%) rotate(20deg)}
+}
+.brand-name{font-size:19px;font-weight:900;letter-spacing:1px}
+.brand-name span{color:#d879ff}
+.brand-tag{font-size:9px;color:var(--muted);margin-top:3px;letter-spacing:2px}
+.nav-links{display:flex;gap:25px;align-items:center}
+.nav-links a{font-size:12px;color:#c9c3d9;transition:.2s}
+.nav-links a:hover{color:#dc8bff}
+.nav-actions{display:flex;gap:9px;align-items:center}
+.btn{
+  padding:11px 18px;border:1px solid var(--border);
+  border-radius:30px;background:transparent;color:white;
+  font-size:12px;font-weight:700;transition:.25s;
+}
+.btn:hover{border-color:var(--purple);transform:translateY(-2px)}
+.btn-primary{
+  border:0;background:linear-gradient(100deg,#a855f7,#ec4899);
+  box-shadow:0 5px 25px #a855f755;
+}
+.btn-primary:hover{box-shadow:0 5px 35px #d946ef99}
+.menu-btn{display:none;background:none;border:0;color:white;font-size:25px}
+
+/* hero */
+.hero{padding:95px 0 65px;position:relative;overflow:hidden}
+.hero-grid{
+  display:grid;grid-template-columns:1.05fr .95fr;
+  align-items:center;gap:35px;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid #b85cff55;background:#a855f716;
+  border-radius:30px;padding:9px 14px;
+  font-size:10px;font-weight:800;letter-spacing:1.4px;
+  color:#dfadff;margin-bottom:23px;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:#c084fc;box-shadow:0 0 12px #c084fc}
+.hero h1{
+  font-size:clamp(43px,6.5vw,78px);
+  font-weight:900;letter-spacing:-4px;line-height:1.05;
+}
+.gradient-text{
+  background:linear-gradient(100deg,#fff,#d8a2ff 45%,#ee79d7 75%,#65dcff);
+  background-clip:text;-webkit-background-clip:text;color:transparent;
+}
+.hero-description{
+  color:var(--muted);font-size:14px;
+  line-height:1.9;max-width:490px;margin:23px 0;
+}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero-actions .btn{padding:14px 23px}
+.hero-points{display:flex;gap:19px;flex-wrap:wrap;margin-top:28px}
+.hero-points span{font-size:10px;color:#c9c2d7}
+.hero-points b{color:#d58bff;margin-right:5px}
+
+/* hero visual */
+.hero-art{
+  min-height:400px;position:relative;
+  display:grid;place-items:center;
+}
+.orbit{
+  position:absolute;width:330px;height:330px;
+  border:1px solid #bb69ff77;border-radius:38%;
+  transform:rotate(35deg);animation:rotate 18s linear infinite;
+}
+.orbit.two{
+  width:275px;height:370px;border-color:#42d5ff55;
+  transform:rotate(-35deg);animation:rotate2 20s linear infinite;
+}
+@keyframes rotate{to{transform:rotate(395deg)}}
+@keyframes rotate2{to{transform:rotate(-395deg)}}
+.art-card{
+  width:235px;height:285px;border-radius:35px;
+  background:linear-gradient(145deg,#bb69ff,#6b42e9 55%,#20c7e9);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:2;
+  box-shadow:0 0 90px #a855f755,inset 0 1px 2px #fff9;
+  animation:float 5s ease-in-out infinite;
+}
+.art-inner{
+  width:215px;height:265px;border-radius:29px;
+  background:linear-gradient(145deg,#241344,#121b3d);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  border:1px solid #ffffff30;
+}
+.art-m{
+  font-size:100px;font-weight:900;line-height:1;
+  background:linear-gradient(135deg,#fff,#d879ff,#62dfff);
+  background-clip:text;-webkit-background-clip:text;color:transparent;
+  text-shadow:0 0 40px #b35cff55;
+}
+.art-caption{font-size:12px;letter-spacing:4px;font-weight:800;margin-top:14px}
+.art-sub{font-size:9px;color:#c5b4e8;margin-top:8px}
+@keyframes float{50%{transform:translateY(-15px)}}
+.float-icon{
+  position:absolute;z-index:3;padding:13px 16px;
+  background:#17112b;border:1px solid var(--border);
+  border-radius:14px;font-size:12px;font-weight:800;
+  box-shadow:0 10px 40px #0008;
+}
+.fi1{top:55px;left:0;color:#e6a8ff}
+.fi2{bottom:55px;right:0;color:#73e5ff}
+
+/* search */
+.search-wrap{max-width:650px;margin:20px auto 85px}
+.search-box{
+  display:flex;align-items:center;gap:10px;
+  padding:7px 8px 7px 20px;
+  border:1px solid #b65cff88;border-radius:50px;
+  background:#151125;box-shadow:0 0 35px #a855f722;
+}
+.search-box input{
+  flex:1;min-width:0;background:transparent;
+  border:0;outline:0;color:white;font-size:13px;
+  padding:12px 0;
+}
+.search-box button{
+  border:0;border-radius:40px;padding:13px 22px;
+  background:linear-gradient(100deg,#a855f7,#ec4899);
+  color:white;font-size:12px;font-weight:800;
+}
+
+/* section */
+section{padding:65px 0}
+.section-head{text-align:center;margin-bottom:35px}
+.section-tag{font-size:10px;color:#d78bff;font-weight:900;letter-spacing:2px}
+.section-head h2{font-size:clamp(27px,4vw,39px);margin:12px 0}
+.section-head p{font-size:12px;color:var(--muted);line-height:1.8}
+
+/* categories */
+.category-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+}
+.category{
+  padding:23px;border-radius:20px;
+  border:1px solid var(--border);
+  background:linear-gradient(145deg,#151127,#0d0c19);
+  transition:.3s;position:relative;overflow:hidden;
+}
+.category:after{
+  content:"";position:absolute;width:120px;height:120px;
+  border-radius:50%;background:#a855f7;filter:blur(90px);
+  right:-40px;top:-40px;opacity:.25;
+}
+.category:hover{
+  transform:translateY(-6px);border-color:#b65cff99;
+  box-shadow:0 15px 35px #a855f71b;
+}
+.cat-icon{
+  width:47px;height:47px;border-radius:14px;
+  display:grid;place-items:center;font-size:23px;
+  background:#a855f721;margin-bottom:17px;
+}
+.category h3{font-size:15px;margin-bottom:8px}
+.category p{font-size:11px;color:var(--muted);line-height:1.7}
+
+/* products */
+.filter-row{
+  display:flex;justify-content:center;gap:9px;
+  flex-wrap:wrap;margin-bottom:30px;
+}
+.filter{
+  background:#151125;border:1px solid var(--border);
+  border-radius:25px;color:#cfc6dc;
+  padding:9px 16px;font-size:11px;
+}
+.filter.active,.filter:hover{
+  background:linear-gradient(90deg,#8b3de0,#c43eae);
+  color:white;border-color:transparent;
+}
+.product-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+}
+.product{
+  background:linear-gradient(145deg,#18142b,#100e1d);
+  border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;transition:.3s;
+}
+.product:hover{transform:translateY(-5px);border-color:#b45aff88}
+.product-art{
+  height:160px;display:grid;place-items:center;
+  font-size:55px;position:relative;
+  background:radial-gradient(circle at 50% 45%,#7739b6,#211333 70%,#11101f);
+}
+.product-art.blue{background:radial-gradient(circle,#145c85,#10172d 70%)}
+.product-art.pink{background:radial-gradient(circle,#963b86,#24102e 70%)}
+.product-art.orange{background:radial-gradient(circle,#a45a2d,#271528 70%)}
+.product-art.green{background:radial-gradient(circle,#246d64,#101d27 70%)}
+.product-art.cyan{background:radial-gradient(circle,#286e9b,#11182e 70%)}
+.product-info{padding:18px}
+.product-info h3{font-size:14px;margin-bottom:8px}
+.product-info p{font-size:11px;color:var(--muted);line-height:1.7}
+.product-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:17px;
+}
+.product-bottom span{font-size:10px;color:#d8a3ff;font-weight:800}
+.explore-btn{
+  background:#a855f722;border:1px solid #a855f755;
+  color:white;border-radius:20px;padding:8px 12px;font-size:10px;
+}
+
+/* promo */
+.promo{
+  padding:55px 35px;border:1px solid #b55bff55;
+  border-radius:25px;text-align:center;
+  background:radial-gradient(ellipse at top,#48216c 0%,#17102b 45%,#100d1c 100%);
+  position:relative;overflow:hidden;
+}
+.promo h2{font-size:clamp(25px,4vw,39px);margin:12px 0}
+.promo p{font-size:12px;color:#c7b9d9;line-height:1.8;margin-bottom:23px}
+
+/* stats */
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:15px;margin:55px 0 10px;
+}
+.stat{
+  text-align:center;padding:25px 10px;
+  border:1px solid var(--border);border-radius:18px;
+  background:#120f20;
+}
+.stat h3{font-size:25px;color:#dc9bff}
+.stat p{font-size:10px;color:var(--muted);margin-top:8px}
+
+/* footer */
+footer{border-top:1px solid var(--border);padding:55px 0 25px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:35px}
+.footer-about p{
+  color:var(--muted);font-size:11px;line-height:1.9;
+  max-width:350px;margin-top:16px;
+}
+.footer-col h4{font-size:12px;margin-bottom:17px}
+.footer-col a{
+  display:block;color:var(--muted);font-size:11px;
+  margin:12px 0;transition:.2s;
+}
+.footer-col a:hover{color:#dc9bff}
+.copyright{
+  margin-top:35px;padding-top:20px;
+  border-top:1px solid var(--border);
+  color:#827b93;font-size:10px;text-align:center;
+}
+.socials{display:flex;gap:10px;margin-top:18px}
+.socials a{
+  border:1px solid var(--border);padding:9px 13px;
+  border-radius:10px;font-size:11px;color:#e4c8ff;
+}
+
+/* floating contact */
+.contact-float{
+  position:fixed;right:19px;bottom:20px;z-index:90;
+  display:flex;flex-direction:column;gap:10px;
+}
+.contact-float a{
+  width:47px;height:47px;border-radius:50%;
+  display:grid;place-items:center;font-size:20px;
+  background:#151125;border:1px solid #ffffff25;
+  box-shadow:0 5px 20px #0008;
+}
+.contact-float a:first-child{background:#087c54}
+.contact-float a:last-child{background:#1679bd}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;bottom:25px;
+  transform:translate(-50%,100px);
+  opacity:0;background:#201532;
+  border:1px solid #b65cff88;color:white;
+  border-radius:12px;padding:14px 20px;
+  font-size:12px;z-index:300;transition:.3s;
+}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+/* responsive */
+@media(max-width:800px){
+  .nav-links{
+    display:none;position:absolute;top:76px;left:0;right:0;
+    padding:22px;background:#100d20;
+    border-bottom:1px solid var(--border);
+    flex-direction:column;align-items:flex-start;
+  }
+  .nav-links.open{display:flex}
+  .menu-btn{display:block}
+  .nav-actions .btn{padding:9px 12px}
+  .hero{padding-top:65px}
+  .hero-grid{grid-template-columns:1fr;text-align:center}
+  .hero-description{margin-left:auto;margin-right:auto}
+  .hero-actions,.hero-points{justify-content:center}
+  .hero-art{min-height:350px}
+  .orbit{width:270px;height:270px}
+  .orbit.two{width:225px;height:310px}
+  .art-card{width:205px;height:245px}
+  .art-inner{width:187px;height:227px}
+  .art-m{font-size:85px}
+  .fi1{left:3%}.fi2{right:3%}
+  .category-grid{grid-template-columns:repeat(2,1fr)}
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:500px){
+  .brand-name{font-size:16px}
+  .brand-tag{font-size:8px}
+  .nav{gap:8px}
+  .nav-actions{gap:5px}
+  .nav-actions .btn{font-size:10px;padding:9px 10px}
+  .hero h1{letter-spacing:-2px}
+  .hero-art{min-height:320px}
+  .category-grid{gap:10px}
+  .category{padding:16px}
+  .category h3{font-size:13px}
+  .product-grid{grid-template-columns:1fr}
+  .product-art{height:185px}
+  .stats{gap:8px}
+  .stat h3{font-size:20px}
+  .stat p{font-size:9px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .footer-about{grid-column:1/-1}
+  .promo{padding:40px 18px}
+}
+</style>
 </head>
+
 <body>
+<div class="glow one"></div>
+<div class="glow two"></div>
 
 <div class="announcement">
-  ✨ MONORANJON — Explore • Discover • Create
+  ✦ WELCOME TO MONORANJON — EXPLORE YOUR DIGITAL UNIVERSE ✦
 </div>
 
-<header class="navbar">
-  <a class="brand" href="#home">
-    <span class="brand-logo">M</span>
-    <span><b>MONO<span>RANJON</span></b><small>Digital Innovation</small></span>
-  </a>
+<header>
+  <div class="container nav">
+    <a href="#home" class="brand">
+      <div class="logo">M</div>
+      <div>
+        <div class="brand-name">MONO<span>RANJON</span></div>
+        <div class="brand-tag">DIGITAL UNIVERSE</div>
+      </div>
+    </a>
 
-  <button id="menuBtn" class="menu-btn">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#categories">Marketplace</a>
+      <a href="#products">Products</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
-  <nav id="navLinks">
-    <a href="#home">Home</a>
-    <a href="#marketplace">Marketplace</a>
-    <a href="#services">Services</a>
-    <a href="#security">Security</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <div class="nav-actions">
-    <button id="langBtn" class="outline-btn">বাংলা</button>
-    <button id="loginBtn" class="outline-btn">Login</button>
-    <button id="registerBtn" class="main-btn">Register</button>
-    <button id="logoutBtn" class="outline-btn hidden">Logout</button>
+    <div class="nav-actions">
+      <button class="btn" onclick="notify('Login page will be connected with Firebase.')">Login</button>
+      <button class="btn btn-primary" onclick="notify('Registration will be connected with Firebase.')">Join Now</button>
+      <button class="menu-btn" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+    </div>
   </div>
 </header>
 
 <main>
-<section id="home" class="hero">
-  <div class="hero-content">
-    <span class="eyebrow">✦ PREMIUM DIGITAL PLATFORM</span>
-    <h1 data-en="Welcome to" data-bn="স্বাগতম"></h1>
-    <h1 class="hero-title">MONORANJON</h1>
-    <h2 class="gradient-text">Explore • Discover • Create</h2>
-
-    <p data-en="Explore games, apps, websites, software and creative digital services. Turn your ideas into reality."
-       data-bn="গেম, অ্যাপ, ওয়েবসাইট, সফটওয়্যার এবং ডিজিটাল সার্ভিস আবিষ্কার করুন। আপনার আইডিয়াকে বাস্তবে রূপ দিন।">
-    </p>
-
-    <div class="hero-buttons">
-      <a href="#marketplace" class="main-btn">Explore Marketplace →</a>
-      <a href="#services" class="outline-btn">Our Services</a>
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> PREMIUM DIGITAL PLATFORM</div>
+      <h1>Explore.<br><span class="gradient-text">Discover.</span><br>Create.</h1>
+      <p class="hero-description">
+        Welcome to MONORANJON — your digital universe.
+        Discover amazing websites, applications, games,
+        creative resources and digital solutions in one place.
+      </p>
+      <div class="hero-actions">
+        <a href="#categories" class="btn btn-primary">Explore Marketplace ↗</a>
+        <a href="#services" class="btn">Our Services →</a>
+      </div>
+      <div class="hero-points">
+        <span><b>✦</b> Digital Products</span>
+        <span><b>✦</b> Creative Solutions</span>
+        <span><b>✦</b> Digital Services</span>
+      </div>
     </div>
 
-    <div class="hero-features">
-      <span>🎮 Digital Products</span>
-      <span>🛡️ Cyber Security</span>
-      <span>💻 Developer Zone</span>
+    <div class="hero-art">
+      <div class="orbit"></div>
+      <div class="orbit two"></div>
+      <div class="float-icon fi1">✦ DIGITAL WORLD</div>
+      <div class="float-icon fi2">∞ CREATE MORE</div>
+      <div class="art-card">
+        <div class="art-inner">
+          <div class="art-m">M</div>
+          <div class="art-caption">MONORANJON</div>
+          <div class="art-sub">EXPLORE • DISCOVER • CREATE</div>
+        </div>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="hero-visual">
-    <div class="orbit orbit-one"></div>
-    <div class="orbit orbit-two"></div>
-    <div class="hero-particle p1">✦</div>
-    <div class="hero-particle p2">◆</div>
-    <div class="hero-particle p3">✧</div>
-    <div class="portrait-box">
-      <img id="heroProfile" src="assets/profile.jpg" alt="MONORANJON">
+<div class="container">
+  <div class="search-wrap">
+    <div class="search-box">
+      <span>⌕</span>
+      <input id="searchInput" type="search"
+        placeholder="Search products, apps, games and services..."
+        aria-label="Search marketplace">
+      <button onclick="searchProducts()">Search</button>
     </div>
-    <div class="floating-label">✦ DIGITAL CREATOR</div>
-    <div class="floating-label second-label">M • MONORANJON</div>
-  </div>
-</section>
-
-<section class="search-area">
-  <input id="searchInput" type="search" placeholder="Search products and services...">
-  <button class="main-btn" id="searchBtn">Search</button>
-</section>
-
-<section class="section" id="marketplace">
-  <div class="section-heading">
-    <span>✦ DIGITAL MARKETPLACE</span>
-    <h2>Explore <b class="gradient-text">Categories</b></h2>
-    <p>Discover your digital world.</p>
-  </div>
-
-  <div class="category-grid">
-    <button class="category active" data-category="All">🎮<b>All</b></button>
-    <button class="category" data-category="Games">🕹️<b>Games</b></button>
-    <button class="category" data-category="Apps">📱<b>Apps</b></button>
-    <button class="category" data-category="Software">💿<b>Software</b></button>
-    <button class="category" data-category="Websites">🌐<b>Websites</b></button>
-    <button class="category" data-category="Design">🎨<b>Design</b></button>
-    <button class="category" data-category="Other">✨<b>Other</b></button>
-  </div>
-
-  <div class="section-heading product-heading">
-    <span>✦ TRENDING COLLECTION</span>
-    <h2>Digital <b class="gradient-text">Products</b></h2>
-  </div>
-
-  <div id="productGrid" class="product-grid">
-    <div class="loading">Loading Marketplace...</div>
-  </div>
-</section>
-
-<section class="section" id="services">
-  <div class="section-heading">
-    <span>✦ PROFESSIONAL SOLUTIONS</span>
-    <h2>Our <b class="gradient-text">Services</b></h2>
-    <p>Creative solutions for your digital ideas.</p>
-  </div>
-
-  <div class="service-grid">
-    <article class="service-card">
-      <div class="service-icon">💻</div>
-      <h3>Web Development</h3>
-      <p>Business websites, portfolios, landing pages and web applications.</p>
-      <a href="#contact">Explore →</a>
-    </article>
-    <article class="service-card">
-      <div class="service-icon">📱</div>
-      <h3>App Development</h3>
-      <p>Android app concepts, interface design and custom applications.</p>
-      <a href="#contact">Explore →</a>
-    </article>
-    <article class="service-card">
-      <div class="service-icon">🎨</div>
-      <h3>Graphics & Branding</h3>
-      <p>Logo, banner, social media graphics and brand identity.</p>
-      <a href="#contact">Explore →</a>
-    </article>
-    <article class="service-card">
-      <div class="service-icon">☁️</div>
-      <h3>Hosting & Deployment</h3>
-      <p>Website hosting setup, domain connection and deployment guidance.</p>
-      <a href="#contact">Explore →</a>
-    </article>
-    <article class="service-card">
-      <div class="service-icon">🛒</div>
-      <h3>E-commerce</h3>
-      <p>Online stores, product catalogs and digital marketplace development.</p>
-      <a href="#contact">Explore →</a>
-    </article>
-    <article class="service-card">
-      <div class="service-icon">⚙️</div>
-      <h3>Backend & API</h3>
-      <p>Database integration, authentication and custom API development.</p>
-      <a href="#contact">Explore →</a>
-    </article>
-  </div>
-</section>
-
-<section class="section security-section" id="security">
-  <div class="security-art">🛡️</div>
-  <div>
-    <span class="eyebrow">✦ STAY SAFE ONLINE</span>
-    <h2>Cyber <span class="gradient-text">Security</span></h2>
-    <p>Responsible cybersecurity education and authorized security services.</p>
-    <div class="security-list">
-      <span>✓ Website Security Review</span>
-      <span>✓ Security Awareness</span>
-      <span>✓ Authorized Vulnerability Assessment</span>
-      <span>✓ Account Protection Guidance</span>
-      <span>✓ Ethical Hacking Education</span>
-    </div>
-    <a href="#contact" class="main-btn">Learn More →</a>
-  </div>
-</section>
-
-<section class="section" id="developer">
-  <div class="section-heading">
-    <span>✦ BUILD YOUR IDEAS</span>
-    <h2>Developer <b class="gradient-text">Studio</b></h2>
-  </div>
-  <div class="developer-grid">
-    <div class="developer-card"><span>🌐</span><h3>Website Developer</h3><p>Modern websites and web apps.</p></div>
-    <div class="developer-card"><span>📲</span><h3>Android Developer</h3><p>App UI and development projects.</p></div>
-    <div class="developer-card"><span>🧩</span><h3>Software Developer</h3><p>Custom digital tools and software.</p></div>
-    <div class="developer-card"><span>🗄️</span><h3>Database Developer</h3><p>Data systems and backend solutions.</p></div>
-  </div>
-</section>
-
-<section class="section banner-section">
-  <div id="mainBanner" class="banner-box">
-    <span class="eyebrow">✦ YOUR DIGITAL DESTINATION</span>
-    <h2>Dream Big. <span class="gradient-text">Build Bigger.</span></h2>
-    <p>Explore the MONORANJON digital universe.</p>
-    <a href="#marketplace" class="main-btn">Discover Now →</a>
-  </div>
-</section>
-
-<section class="section about-section" id="about">
-  <div class="about-logo">M</div>
-  <div>
-    <span class="eyebrow">✦ ABOUT US</span>
-    <h2>Who is <span class="gradient-text">MONORANJON?</span></h2>
-    <p>A digital innovation platform for technology, development, creative services, digital products and responsible cybersecurity awareness.</p>
-  </div>
-</section>
-
-<section class="section" id="contact">
-  <div class="section-heading">
-    <span>✦ GET IN TOUCH</span>
-    <h2>Let's <b class="gradient-text">Connect</b></h2>
-  </div>
-  <div class="contact-grid">
-    <a class="contact-card" href="https://wa.me/8801845077415" target="_blank" rel="noopener">
-      <span>🟢</span><div><b>WhatsApp</b><small>01845077415</small></div>
-    </a>
-    <a class="contact-card" href="https://t.me/Monoranjonfire" target="_blank" rel="noopener">
-      <span>✈️</span><div><b>Telegram</b><small>@Monoranjonfire</small></div>
-    </a>
-    <div class="contact-card"><span>📘</span><div><b>Facebook</b><small>Coming Soon</small></div></div>
-    <div class="contact-card"><span>▶️</span><div><b>YouTube</b><small>Coming Soon</small></div></div>
-  </div>
-</section>
-
-<!-- ADMIN DASHBOARD -->
-<section id="adminPanel" class="section admin-section hidden">
-  <div class="section-heading">
-    <span>✦ PRIVATE CONTROL CENTER</span>
-    <h2>Admin <b class="gradient-text">Dashboard</b></h2>
-    <p>Manage products, profile photos and website banners.</p>
-  </div>
-
-  <div class="admin-box">
-    <h3>Upload Digital Product</h3>
-    <form id="productForm">
-      <input name="title" placeholder="Product name" required maxlength="100">
-      <select name="category" required>
-        <option value="Games">Games</option>
-        <option value="Apps">Apps</option>
-        <option value="Software">Software</option>
-        <option value="Websites">Websites</option>
-        <option value="Design">Design</option>
-        <option value="Other">Other</option>
-      </select>
-      <textarea name="description" placeholder="Product description" required maxlength="1000"></textarea>
-      <input name="price" placeholder="Price (e.g. Free or ৳500)" maxlength="30">
-      <label>Product Cover Image</label>
-      <input name="image" type="file" accept="image/*">
-      <label>Product File (optional)</label>
-      <input name="file" type="file">
-      <button class="main-btn" type="submit">Upload Product</button>
-      <p id="productStatus" class="status"></p>
-    </form>
-  </div>
-
-  <div class="admin-box">
-    <h3>Update Website Images</h3>
-    <form id="assetForm">
-      <select name="assetType">
-        <option value="profile">Profile Photo</option>
-        <option value="banner">Homepage Banner</option>
-        <option value="logo">Website Logo</option>
-      </select>
-      <input type="file" name="assetFile" accept="image/*" required>
-      <button class="main-btn" type="submit">Update Image</button>
-      <p id="assetStatus" class="status"></p>
-    </form>
-  </div>
-
-  <div class="admin-box">
-    <h3>Manage Published Products</h3>
-    <div id="adminProducts"></div>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <div class="footer-brand">
-    <span class="brand-logo">M</span>
-    <b>MONORANJON</b>
-    <p>Explore • Discover • Create</p>
-  </div>
-  <div class="footer-links">
-    <a href="#home">Home</a>
-    <a href="#marketplace">Marketplace</a>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <p class="copyright">© <span id="year"></span> MONORANJON. All Rights Reserved.</p>
-</footer>
-
-<div id="authModal" class="modal hidden">
-  <div class="modal-box">
-    <button id="closeModal" class="close-btn">×</button>
-    <h2 id="authTitle">Login</h2>
-    <form id="authForm">
-      <input id="authName" placeholder="Your name" class="hidden">
-      <input id="authEmail" type="email" placeholder="Email address" required>
-      <input id="authPassword" type="password" placeholder="Password (minimum 6 characters)" required minlength="6">
-      <button id="authSubmit" class="main-btn" type="submit">Login</button>
-    </form>
-    <button id="googleBtn" class="outline-btn full-btn">Continue with Google</button>
-    <button id="switchAuth" class="text-btn">Create a new account</button>
-    <p id="authStatus" class="status"></p>
   </div>
 </div>
 
-<div id="toast" class="toast"></div>
+<section id="categories">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">✦ DIGITAL MARKETPLACE</div>
+      <h2>Explore <span class="gradient-text">Categories</span></h2>
+      <p>Discover digital products and creative possibilities.</p>
+    </div>
 
-<script type="module" src="app.js"></script>
+    <div class="category-grid">
+      <a class="category" href="#products" onclick="setFilter('Games')">
+        <div class="cat-icon">🎮</div>
+        <h3>Games</h3>
+        <p>Explore gaming projects and digital game resources.</p>
+      </a>
+      <a class="category" href="#products" onclick="setFilter('Apps')">
+        <div class="cat-icon">📱</div>
+        <h3>Android Apps</h3>
+        <p>Discover mobile applications and app projects.</p>
+      </a>
+      <a class="category" href="#products" onclick="setFilter('Websites')">
+        <div class="cat-icon">🌐</div>
+        <h3>Websites</h3>
+        <p>Explore website templates and web projects.</p>
+      </a>
+      <a class="category" href="#products" onclick="setFilter('Software')">
+        <div class="cat-icon">💻</div>
+        <h3>Software</h3>
+        <p>Digital tools and software resources.</p>
+      </a>
+      <a class="category" href="#products" onclick="setFilter('Design')">
+        <div class="cat-icon">🎨</div>
+        <h3>Design & Templates</h3>
+        <p>Creative designs and ready-to-use templates.</p>
+      </a>
+      <a class="category" href="#services">
+        <div class="cat-icon">🚀</div>
+        <h3>Digital Services</h3>
+        <p>Website development, branding and custom solutions.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">✦ DISCOVER SOMETHING NEW</div>
+      <h2>Featured <span class="gradient-text">Collection</span></h2>
+      <p>Explore our digital product categories.</p>
+    </div>
+
+    <div class="filter-row">
+      <button class="filter active" onclick="setFilter('All',this)">All</button>
+      <button class="filter" onclick="setFilter('Games',this)">Games</button>
+      <button class="filter" onclick="setFilter('Apps',this)">Apps</button>
+      <button class="filter" onclick="setFilter('Websites',this)">Websites</button>
+      <button class="filter" onclick="setFilter('Software',this)">Software</button>
+      <button class="filter" onclick="setFilter('Design',this)">Design</button>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+      <article class="product" data-category="Games">
+        <div class="product-art">🎮</div>
+        <div class="product-info">
+          <h3>Game Projects</h3>
+          <p>Discover game development projects and resources.</p>
+          <div class="product-bottom">
+            <span>GAMES</span>
+            <button class="explore-btn" onclick="notify('Contact us to explore game projects.')">Explore ↗</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product" data-category="Apps">
+        <div class="product-art blue">📱</div>
+        <div class="product-info">
+          <h3>Android Applications</h3>
+          <p>Explore Android apps and application projects.</p>
+          <div class="product-bottom">
+            <span>APPLICATIONS</span>
+            <button class="explore-btn" onclick="notify('Contact us to explore app projects.')">Explore ↗</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product" data-category="Websites">
+        <div class="product-art pink">🌐</div>
+        <div class="product-info">
+          <h3>Website Projects</h3>
+          <p>Discover modern website projects and templates.</p>
+          <div class="product-bottom">
+            <span>WEBSITES</span>
+            <button class="explore-btn" onclick="notify('Contact us to explore website projects.')">Explore ↗</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product" data-category="Software">
+        <div class="product-art orange">⚙️</div>
+        <div class="product-info">
+          <h3>Digital Software</h3>
+          <p>Explore software tools and digital resources.</p>
+          <div class="product-bottom">
+            <span>SOFTWARE</span>
+            <button class="explore-btn" onclick="notify('Contact us to explore software.')">Explore ↗</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product" data-category="Design">
+        <div class="product-art green">🎨</div>
+        <div class="product-info">
+          <h3>Creative Templates</h3>
+          <p>Discover creative design and template collections.</p>
+          <div class="product-bottom">
+            <span>DESIGN</span>
+            <button class="explore-btn" onclick="notify('Contact us to explore templates.')">Explore ↗</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product" data-category="Websites">
+        <div class="product-art cyan">🚀</div>
+        <div class="product-info">
+          <h3>Custom Projects</h3>
+          <p>Explore custom digital projects and solutions.</p>
+          <div class="product-bottom">
+            <span>PROJECTS</span>
+            <button class="explore-btn" onclick="notify('Contact us about a custom project.')">Explore ↗</button>
+          </div>
+        </div>
+      </article>
+    </div>
+    <p id="emptyMessage" style="display:none;text-align:center;color:#aaa;margin-top:25px;font-size:13px">No matching items found.</p>
+  </div>
+</section>
+
+<section id="services">
+  <div class="container">
+    <div class="promo">
+      <div class="section-tag">✦ LET'S CREATE SOMETHING AMAZING</div>
+      <h2>Have a <span class="gradient-text">Project Idea?</span></h2>
+      <p>Need a website, Android application, branding or a custom digital solution?<br>Let's discuss your project.</p>
+      <a class="btn btn-primary"
+         href="https://wa.me/8801845077415?text=Hello%20MONORANJON%2C%20I%20want%20to%20discuss%20a%20project."
+         target="_blank" rel="noopener">Start Your Project ↗</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><h3>24/7</h3><p>Online Access</p></div>
+      <div class="stat"><h3>∞</h3><p>Creative Possibilities</p></div>
+      <div class="stat"><h3>01</h3><p>Digital Universe</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">✦ ABOUT OUR PLATFORM</div>
+      <h2>Welcome to <span class="gradient-text">MONORANJON</span></h2>
+      <p>A digital destination for exploring technology, creativity,<br>
+      websites, applications and digital opportunities.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a href="#home" class="brand">
+          <div class="logo">M</div>
+          <div>
+            <div class="brand-name">MONO<span>RANJON</span></div>
+            <div class="brand-tag">DIGITAL UNIVERSE</div>
+          </div>
+        </a>
+        <p>Explore. Discover. Create. A destination for digital products, technology and creative services.</p>
+        <div class="socials">
+          <a href="https://wa.me/8801845077415" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://t.me/Monoranjonfire" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#categories">Categories</a>
+        <a href="#products">Marketplace</a>
+        <a href="#services">Services</a>
+        <a href="#about">About Us</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="https://wa.me/8801845077415">WhatsApp</a>
+        <a href="https://t.me/Monoranjonfire">Telegram</a>
+        <a href="mailto:contact@monoranjon.com">Email (replace with your real email)</a>
+      </div>
+    </div>
+
+    <div class="copyright">
+      © <span id="year"></span> MONORANJON. All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
+<div class="contact-float">
+  <a href="https://wa.me/8801845077415" target="_blank" rel="noopener" aria-label="WhatsApp">◉</a>
+  <a href="https://t.me/Monoranjonfire" target="_blank" rel="noopener" aria-label="Telegram">➤</a>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const navLinks = document.getElementById('navLinks');
+
+function toggleMenu(){
+  navLinks.classList.toggle('open');
+}
+navLinks.querySelectorAll('a').forEach(link=>{
+  link.addEventListener('click',()=>navLinks.classList.remove('open'));
+});
+
+let toastTimer;
+function notify(message){
+  const toast=document.getElementById('toast');
+  toast.textContent=message;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>toast.classList.remove('show'),2800);
+}
+
+function setFilter(category,button){
+  const cards=document.querySelectorAll('.product');
+  const buttons=document.querySelectorAll('.filter');
+
+  cards.forEach(card=>{
+    card.style.display=
+      category==='All'||card.dataset.category===category?'':'none';
+  });
+
+  buttons.forEach(btn=>btn.classList.remove('active'));
+  if(button) button.classList.add('active');
+  else{
+    buttons.forEach(btn=>{
+      if(btn.textContent.trim()===category) btn.classList.add('active');
+    });
+  }
+
+  document.getElementById('emptyMessage').style.display=
+    [...cards].some(card=>card.style.display!=='none')?'none':'block';
+}
+
+function searchProducts(){
+  const query=document.getElementById('searchInput').value.trim().toLowerCase();
+  const cards=document.querySelectorAll('.product');
+
+  cards.forEach(card=>{
+    card.style.display=card.innerText.toLowerCase().includes(query)?'':'none';
+  });
+
+  document.querySelectorAll('.filter').forEach(btn=>btn.classList.remove('active'));
+
+  document.getElementById('emptyMessage').style.display=
+    [...cards].some(card=>card.style.display!=='none')?'none':'block';
+
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+}
+
+document.getElementById('searchInput').addEventListener('keydown',e=>{
+  if(e.key==='Enter') searchProducts();
+});
+
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
 </body>
 </html>
