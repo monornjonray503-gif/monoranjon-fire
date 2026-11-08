@@ -1,113 +1,260 @@
-import { auth, db, storage } from "./firebase.js";
-
 import {
+  auth, db, storage, googleProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  GoogleAuthProvider,
   signInWithPopup,
   signOut,
   onAuthStateChanged,
-  updateProfile
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-
-import {
-  collection, addDoc, getDocs, query, where,
-  deleteDoc, doc, setDoc, serverTimestamp
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-
-import {
-  ref, uploadBytesResumable, getDownloadURL,
-  deleteObject, refFromURL
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
-
-// Add your own registered Firebase Admin UID here.
-const ADMIN_UID = "PASTE_YOUR_ADMIN_UID_HERE";
+  updateProfile,
+  collection, addDoc, getDocs,
+  deleteDoc, doc, setDoc, getDoc,
+  query, orderBy, serverTimestamp,
+  ref, uploadBytes, getDownloadURL
+} from "./firebase.js";
 
 const $ = id => document.getElementById(id);
 
+let currentUser = null;
+let isRegister = false;
 let isAdmin = false;
 let currentCategory = "All";
-let allProducts = [];
-let authMode = "login";
+let products = [];
+let lang = "bn";
 
-function toast(message) {
-  $("toast").textContent = message;
-  $("toast").style.display = "block";
-  setTimeout(() => $("toast").style.display = "none", 3000);
+const demoProducts = [
+  {
+    id: "demo1",
+    name: "Website Template",
+    category: "Websites",
+    price: 0,
+    description: "Digital website template demonstration.",
+    image: "assets/banner.jpg",
+    link: ""
+  },
+  {
+    id: "demo2",
+    name: "Creative Design",
+    category: "Design",
+    price: 0,
+    description: "Creative design collection demonstration.",
+    image: "assets/banner.jpg",
+    link: ""
+  }
+];
+
+// Firebase configuration check
+function firebaseConfigured() {
+  return auth.app.options.apiKey &&
+    auth.app.options.apiKey !== "YOUR_API_KEY" &&
+    auth.app.options.projectId !== "YOUR_PROJECT_ID";
 }
 
-function safeText(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;",
-    '"':"&quot;", "'":"&#39;"
-  })[char]);
-}
-
-function fileName(name) {
-  return name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0,120);
-}
-
-// Mobile menu
-$("menuBtn").onclick = () => {
-  $("navLinks").classList.toggle("open");
-};
-
-$("navLinks").querySelectorAll("a").forEach(link => {
-  link.onclick = () => $("navLinks").classList.remove("open");
+// LOADER
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    $("loader").style.opacity = "0";
+    setTimeout(() => $("loader").style.display = "none", 500);
+  }, 900);
 });
 
-// Language switch
-let language = localStorage.getItem("monoLanguage") || "en";
+$("year").textContent = new Date().getFullYear();
 
-function setLanguage(lang) {
-  language = lang;
+// MOBILE MENU
+$("menuToggle").addEventListener("click", () => {
+  $("navLinks").classList.toggle("open");
+});
+
+document.querySelectorAll("#navLinks a").forEach(link => {
+  link.addEventListener("click", () => {
+    $("navLinks").classList.remove("open");
+  });
+});
+
+// LANGUAGE
+$("languageBtn").addEventListener("click", () => {
+  lang = lang === "bn" ? "en" : "bn";
+  $("languageBtn").textContent = lang === "bn" ? "EN" : "বাংলা";
+
   document.documentElement.lang = lang;
 
-  document.querySelectorAll("[data-en][data-bn]").forEach(element => {
-    element.textContent = element.dataset[lang];
+  document.querySelectorAll("[data-bn]").forEach(el => {
+    el.textContent = el.dataset[lang];
+  });
+});
+
+// CATEGORY
+document.querySelectorAll(".category").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".category").forEach(b =>
+      b.classList.remove("active")
+    );
+
+    button.classList.add("active");
+    currentCategory = button.dataset.category;
+    renderProducts();
+  });
+});
+
+// SEARCH
+$("searchInput").addEventListener("input", renderProducts);
+
+// PRODUCT DISPLAY
+function renderProducts() {
+  const grid = $("productGrid");
+  const search = $("searchInput").value.toLowerCase();
+
+  const filtered = products.filter(p => {
+    const categoryMatch =
+      currentCategory === "All" ||
+      p.category === currentCategory;
+
+    const searchMatch =
+      (p.name || "").toLowerCase().includes(search) ||
+      (p.description || "").toLowerCase().includes(search);
+
+    return categoryMatch && searchMatch;
   });
 
-  $("langBtn").textContent = lang === "en" ? "বাংলা" : "English";
-  localStorage.setItem("monoLanguage", lang);
+  grid.innerHTML = "";
+
+  if (!filtered.length) {
+    grid.innerHTML =
+      '<div class="empty-state">No products found.</div>';
+    return;
+  }
+
+  filtered.forEach(p => {
+    const card = document.createElement("article");
+    card.className = "product-card";
+
+    const img = document.createElement("img");
+    img.src = p.image || "assets/banner.jpg";
+    img.alt = p.name || "Product";
+    img.loading = "lazy";
+
+    const info = document.createElement("div");
+    info.className = "product-info";
+
+    const category = document.createElement("span");
+    category.className = "product-category";
+    category.textContent = p.category || "Other";
+
+    const title = document.createElement("h3");
+    title.textContent = p.name || "Product";
+
+    const desc = document.createElement("p");
+    desc.textContent = p.description || "";
+
+    const bottom = document.createElement("div");
+    bottom.className = "product-bottom";
+
+    const price = document.createElement("span");
+    price.className = "product-price";
+    price.textContent = "৳" + Number(p.price || 0);
+
+    bottom.appendChild(price);
+
+    if (p.link) {
+      const a = document.createElement("a");
+      a.className = "product-link";
+      a.href = p.link;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.textContent = "View Product ↗";
+      bottom.appendChild(a);
+    }
+
+    info.append(category, title, desc, bottom);
+    card.append(img, info);
+    grid.appendChild(card);
+  });
 }
 
-$("langBtn").onclick = () => {
-  setLanguage(language === "en" ? "bn" : "en");
-};
+// LOAD PRODUCTS
+async function loadProducts() {
+  if (!firebaseConfigured()) {
+    products = demoProducts;
+    renderProducts();
+    return;
+  }
 
-setLanguage(language);
+  try {
+    const q = query(
+      collection(db, "products"),
+      orderBy("createdAt", "desc")
+    );
 
-// Authentication modal
-function openAuth(mode) {
-  authMode = mode;
+    const snapshot = await getDocs(q);
+
+    products = snapshot.docs.map(d => ({
+      id: d.id,
+      ...d.data()
+    })).filter(p => p.status === "published");
+
+    renderProducts();
+    renderAdminProducts();
+
+  } catch (error) {
+    console.error(error);
+    $("productGrid").textContent =
+      "Products could not be loaded. Check Firebase configuration and rules.";
+  }
+}
+
+// AUTH MODAL
+$("loginOpen").addEventListener("click", () => {
   $("authModal").classList.remove("hidden");
-  $("authTitle").textContent = mode === "login" ? "Welcome Back" : "Create Account";
-  $("authSubmit").textContent = mode === "login" ? "Login" : "Register";
-  $("authName").classList.toggle("hidden", mode === "login");
-  $("switchAuth").textContent =
-    mode === "login" ? "Create a new account" : "Already have an account? Login";
-  $("authStatus").textContent = "";
+  $("navLinks").classList.remove("open");
+});
+
+$("modalClose").addEventListener("click", closeModal);
+
+$("authModal").addEventListener("click", e => {
+  if (e.target === $("authModal")) closeModal();
+});
+
+function closeModal() {
+  $("authModal").classList.add("hidden");
+  $("authMessage").textContent = "";
 }
 
-$("loginBtn").onclick = () => openAuth("login");
-$("registerBtn").onclick = () => openAuth("register");
-$("closeModal").onclick = () => $("authModal").classList.add("hidden");
+function updateAuthMode() {
+  $("authTitle").textContent = isRegister
+    ? "Create Account" : "Welcome Back";
 
-$("switchAuth").onclick = () => {
-  openAuth(authMode === "login" ? "register" : "login");
-};
+  $("authSubmit").textContent = isRegister
+    ? "Register" : "Login";
 
-$("authForm").addEventListener("submit", async event => {
-  event.preventDefault();
+  $("authName").classList.toggle("hidden", !isRegister);
+
+  $("switchAuth").textContent = isRegister
+    ? "Already have an account? Login"
+    : "Create an account";
+}
+
+$("switchAuth").addEventListener("click", () => {
+  isRegister = !isRegister;
+  updateAuthMode();
+});
+
+// EMAIL AUTH
+$("authForm").addEventListener("submit", async e => {
+  e.preventDefault();
 
   const email = $("authEmail").value.trim();
   const password = $("authPassword").value;
   const name = $("authName").value.trim();
 
+  if (!firebaseConfigured()) {
+    $("authMessage").textContent =
+      "আগে firebase.js-এ Firebase Config বসাও।";
+    return;
+  }
+
   try {
     $("authSubmit").disabled = true;
 
-    if (authMode === "register") {
+    if (isRegister) {
       if (!name) throw new Error("Enter your name.");
 
       const result = await createUserWithEmailAndPassword(
@@ -118,340 +265,280 @@ $("authForm").addEventListener("submit", async event => {
         displayName: name
       });
 
-      toast("Account created successfully!");
+      await setDoc(doc(db, "users", result.user.uid), {
+        name,
+        email,
+        createdAt: serverTimestamp()
+      });
+
     } else {
-      await signInWithEmailAndPassword(auth, email, password);
-      toast("Login successful!");
+      await signInWithEmailAndPassword(
+        auth, email, password
+      );
     }
 
-    $("authModal").classList.add("hidden");
-    $("authForm").reset();
+    closeModal();
 
   } catch (error) {
-    $("authStatus").textContent = error.message;
+    $("authMessage").textContent = error.message;
   } finally {
     $("authSubmit").disabled = false;
   }
 });
 
-// Google login
-$("googleBtn").onclick = async () => {
-  try {
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
-    $("authModal").classList.add("hidden");
-    toast("Google login successful!");
-  } catch (error) {
-    $("authStatus").textContent = error.message;
+// GOOGLE AUTH
+$("googleLogin").addEventListener("click", async () => {
+  if (!firebaseConfigured()) {
+    $("authMessage").textContent =
+      "Firebase Config আগে বসাতে হবে।";
+    return;
   }
-};
 
-// Auth state and admin protection
-onAuthStateChanged(auth, async user => {
-  isAdmin = !!user && user.uid === ADMIN_UID;
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
 
-  $("loginBtn").classList.toggle("hidden", !!user);
-  $("registerBtn").classList.toggle("hidden", !!user);
-  $("logoutBtn").classList.toggle("hidden", !user);
-  $("adminPanel").classList.toggle("hidden", !isAdmin);
+    await setDoc(doc(db, "users", result.user.uid), {
+      name: result.user.displayName || "",
+      email: result.user.email || "",
+      updatedAt: serverTimestamp()
+    }, { merge: true });
 
-  if (user && isAdmin) {
-    toast("Admin access enabled.");
-    await loadProducts();
-    await loadAssets();
-  } else {
-    await loadProducts();
-    await loadAssets();
+    closeModal();
+
+  } catch (error) {
+    $("authMessage").textContent = error.message;
   }
 });
 
-$("logoutBtn").onclick = async () => {
-  await signOut(auth);
-  toast("Logged out.");
-};
-
-// Upload helper
-async function uploadFile(file, folder) {
-  if (!file) return null;
-
-  const path = `uploads/${folder}/${Date.now()}_${fileName(file.name)}`;
-  const storageRef = ref(storage, path);
-
-  const task = uploadBytesResumable(storageRef, file, {
-    contentType: file.type || "application/octet-stream"
-  });
-
-  await new Promise((resolve, reject) => {
-    task.on("state_changed", snapshot => {
-      const percent = Math.round(
-        snapshot.bytesTransferred / snapshot.totalBytes * 100
-      );
-      toast(`Uploading ${percent}%`);
-    }, reject, resolve);
-  });
-
-  return {
-    url: await getDownloadURL(task.snapshot.ref),
-    path
-  };
-}
-
-// Load products
-async function loadProducts() {
-  $("productGrid").innerHTML = '<div class="loading">Loading products...</div>';
+// ADMIN CHECK
+async function checkAdmin(user) {
+  if (!user || !firebaseConfigured()) return false;
 
   try {
-    let snapshot;
-
-    if (isAdmin) {
-      snapshot = await getDocs(collection(db, "products"));
-    } else {
-      const q = query(
-        collection(db, "products"),
-        where("status", "==", "published")
-      );
-      snapshot = await getDocs(q);
-    }
-
-    allProducts = snapshot.docs.map(item => ({
-      id: item.id,
-      ...item.data()
-    }));
-
-    allProducts.sort((a,b) =>
-      (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0)
+    const adminDoc = await getDoc(
+      doc(db, "admins", user.uid)
     );
 
-    renderProducts();
-    renderAdminProducts();
+    return adminDoc.exists() &&
+      adminDoc.data().active === true;
 
   } catch (error) {
-    $("productGrid").innerHTML =
-      '<div class="empty">Could not load products. Check Firebase setup and Firestore Rules.</div>';
+    console.error("Admin check:", error);
+    return false;
+  }
+}
+
+// AUTH STATE
+onAuthStateChanged(auth, async user => {
+  currentUser = user;
+  isAdmin = await checkAdmin(user);
+
+  $("loginOpen").textContent = user ? "My Account" : "Login";
+
+  $("account").classList.toggle("hidden", !user);
+  $("admin").classList.toggle("hidden", !isAdmin);
+
+  if (user) {
+    $("userName").textContent =
+      "Welcome " + (user.displayName || "User");
+
+    $("userEmail").textContent = user.email || "";
+    $("loginOpen").onclick = () => {
+      $("account").scrollIntoView({ behavior: "smooth" });
+    };
+  } else {
+    $("loginOpen").onclick = () => {
+      $("authModal").classList.remove("hidden");
+    };
+  }
+
+  if (isAdmin) renderAdminProducts();
+});
+
+// LOGOUT
+$("logoutBtn").addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+    location.reload();
+  } catch (error) {
+    alert(error.message);
+  }
+});
+
+// UPLOAD IMAGE
+async function uploadImage(file, folder) {
+  if (!file) throw new Error("Select an image first.");
+
+  if (!file.type.startsWith("image/")) {
+    throw new Error("Only image files are allowed.");
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    throw new Error("Image must be under 5 MB.");
+  }
+
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const path = `${folder}/${Date.now()}_${safeName}`;
+
+  const storageRef = ref(storage, path);
+
+  await uploadBytes(storageRef, file, {
+    contentType: file.type
+  });
+
+  return getDownloadURL(storageRef);
+}
+
+// ADD PRODUCT
+$("productForm").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  if (!currentUser || !isAdmin) {
+    $("adminMessage").textContent = "Admin access required.";
+    return;
+  }
+
+  const file = $("productImage").files[0];
+
+  try {
+    $("adminMessage").textContent = "Uploading...";
+
+    const image = await uploadImage(file, "products");
+
+    await addDoc(collection(db, "products"), {
+      name: $("productName").value.trim(),
+      category: $("productCategory").value,
+      price: Number($("productPrice").value),
+      description: $("productDescription").value.trim(),
+      link: $("productLink").value.trim(),
+      image,
+      status: "published",
+      createdBy: currentUser.uid,
+      createdAt: serverTimestamp()
+    });
+
+    $("adminMessage").textContent = "Product published!";
+    $("productForm").reset();
+
+    await loadProducts();
+
+  } catch (error) {
+    $("adminMessage").textContent = error.message;
+  }
+});
+
+// ADMIN PRODUCT LIST
+async function renderAdminProducts() {
+  if (!isAdmin) return;
+
+  try {
+    const snapshot = await getDocs(
+      collection(db, "products")
+    );
+
+    const list = $("adminProductList");
+    list.innerHTML = "";
+
+    snapshot.forEach(d => {
+      const p = d.data();
+
+      const row = document.createElement("div");
+      row.className = "admin-item";
+
+      const title = document.createElement("span");
+      title.textContent = `${p.name} (${p.category})`;
+
+      const del = document.createElement("button");
+      del.textContent = "Delete";
+
+      del.addEventListener("click", async () => {
+        if (!confirm("Delete this product?")) return;
+
+        try {
+          await deleteDoc(doc(db, "products", d.id));
+          await loadProducts();
+        } catch (error) {
+          alert(error.message);
+        }
+      });
+
+      row.append(title, del);
+      list.appendChild(row);
+    });
+
+  } catch (error) {
     console.error(error);
   }
 }
 
-// Product display
-function renderProducts() {
-  const search = $("searchInput").value.toLowerCase();
-
-  const products = allProducts.filter(product => {
-    const categoryMatch =
-      currentCategory === "All" || product.category === currentCategory;
-
-    const searchMatch =
-      `${product.title} ${product.description} ${product.category}`
-      .toLowerCase().includes(search);
-
-    return categoryMatch && searchMatch &&
-      (product.status === "published" || isAdmin);
-  });
-
-  if (!products.length) {
-    $("productGrid").innerHTML =
-      '<div class="empty">No products found. Check again later.</div>';
-    return;
-  }
-
-  $("productGrid").innerHTML = products.map(product => `
-    <article class="product-card">
-      <div class="product-image">
-        ${product.imageURL
-          ? `<img src="${safeText(product.imageURL)}" alt="${safeText(product.title)}" loading="lazy">`
-          : "💎"}
-      </div>
-      <div class="product-info">
-        <h3>${safeText(product.title)}</h3>
-        <p>${safeText(product.description)}</p>
-        <div class="product-meta">
-          <span class="product-price">${safeText(product.price || "Contact")}</span>
-          ${product.fileURL
-            ? `<a href="${safeText(product.fileURL)}" target="_blank" rel="noopener" download>Download ↗</a>`
-            : product.productURL
-              ? `<a href="${safeText(product.productURL)}" target="_blank" rel="noopener">Visit ↗</a>`
-              : `<a href="https://wa.me/8801845077415" target="_blank" rel="noopener">Contact ↗</a>`
-          }
-        </div>
-      </div>
-    </article>
-  `).join("");
-}
-
-// Category selection
-document.querySelectorAll(".category").forEach(button => {
-  button.onclick = () => {
-    document.querySelectorAll(".category").forEach(item =>
-      item.classList.remove("active")
-    );
-
-    button.classList.add("active");
-    currentCategory = button.dataset.category;
-    renderProducts();
-  };
-});
-
-$("searchInput").addEventListener("input", renderProducts);
-$("searchBtn").onclick = renderProducts;
-
-// Admin product upload
-$("productForm").addEventListener("submit", async event => {
-  event.preventDefault();
-
-  if (!isAdmin) {
-    toast("Admin access required.");
-    return;
-  }
-
-  const form = event.currentTarget;
-  const data = new FormData(form);
-
-  try {
-    $("productStatus").textContent = "Uploading...";
-
-    const imageFile = data.get("image");
-    const productFile = data.get("file");
-
-    const image = imageFile?.size
-      ? await uploadFile(imageFile, "product-images")
-      : null;
-
-    const file = productFile?.size
-      ? await uploadFile(productFile, "product-files")
-      : null;
-
-    await addDoc(collection(db, "products"), {
-      title: data.get("title").trim(),
-      category: data.get("category"),
-      description: data.get("description").trim(),
-      price: data.get("price").trim(),
-      imageURL: image?.url || "",
-      imagePath: image?.path || "",
-      fileURL: file?.url || "",
-      filePath: file?.path || "",
-      status: "published",
-      createdAt: serverTimestamp()
-    });
-
-    form.reset();
-    $("productStatus").textContent = "Product published successfully!";
-    await loadProducts();
-
-  } catch (error) {
-    $("productStatus").textContent = error.message;
-  }
-});
-
-// Admin asset upload: profile, banner and logo
-$("assetForm").addEventListener("submit", async event => {
-  event.preventDefault();
-
-  if (!isAdmin) return toast("Admin access required.");
-
-  const form = event.currentTarget;
-  const data = new FormData(form);
-  const file = data.get("assetFile");
-  const type = data.get("assetType");
-
-  try {
-    $("assetStatus").textContent = "Uploading image...";
-
-    if (!file || !file.size) throw new Error("Choose an image.");
-
-    const uploaded = await uploadFile(file, "site-assets");
-
-    await setDoc(doc(db, "siteAssets", type), {
-      type,
-      url: uploaded.url,
-      path: uploaded.path,
-      updatedAt: serverTimestamp()
-    });
-
-    $("assetStatus").textContent = "Image updated successfully!";
-    form.reset();
-    await loadAssets();
-
-  } catch (error) {
-    $("assetStatus").textContent = error.message;
-  }
-});
-
-// Apply saved site images
-async function loadAssets() {
-  try {
-    const snapshot = await getDocs(collection(db, "siteAssets"));
-
-    snapshot.forEach(item => {
-      const asset = item.data();
-
-      if (item.id === "profile" && asset.url) {
-        $("heroProfile").src = asset.url;
-      }
-
-      if (item.id === "banner" && asset.url) {
-        $("mainBanner").style.backgroundImage =
-          `linear-gradient(#100822bb,#100822bb),url("${asset.url}")`;
-        $("mainBanner").style.backgroundSize = "cover";
-        $("mainBanner").style.backgroundPosition = "center";
-      }
-
-      if (item.id === "logo" && asset.url) {
-        document.querySelectorAll(".brand-logo").forEach(element => {
-          element.textContent = "";
-          element.style.background = `url("${asset.url}") center/contain no-repeat`;
-        });
-      }
-    });
-  } catch (error) {
-    console.error("Asset loading:", error);
-  }
-}
-
-// Admin product manager
-function renderAdminProducts() {
+// PROFILE UPDATE
+$("profileSave").addEventListener("click", async () => {
   if (!isAdmin) return;
 
-  $("adminProducts").innerHTML = allProducts.length
-    ? allProducts.map(product => `
-      <div class="admin-product">
-        <span>${safeText(product.title)} — ${safeText(product.category)}</span>
-        <button class="delete-btn" data-delete="${safeText(product.id)}">Delete</button>
-      </div>
-    `).join("")
-    : "<p>No products yet.</p>";
+  try {
+    const file = $("profileUpload").files[0];
+    const url = await uploadImage(file, "site");
 
-  $("adminProducts").querySelectorAll("[data-delete]").forEach(button => {
-    button.onclick = () => deleteProduct(button.dataset.delete);
-  });
-}
+    await setDoc(doc(db, "settings", "site"), {
+      profileImage: url
+    }, { merge: true });
 
-// Delete product and associated files
-async function deleteProduct(id) {
+    $("profileMessage").textContent =
+      "Profile image saved. Refresh to see the update.";
+
+  } catch (error) {
+    $("profileMessage").textContent = error.message;
+  }
+});
+
+// BANNER UPDATE
+$("bannerSave").addEventListener("click", async () => {
   if (!isAdmin) return;
 
-  if (!confirm("Delete this product?")) return;
+  try {
+    const file = $("bannerUpload").files[0];
+    const url = await uploadImage(file, "site");
+
+    await setDoc(doc(db, "settings", "site"), {
+      bannerImage: url
+    }, { merge: true });
+
+    $("bannerMessage").textContent =
+      "Banner image saved.";
+
+  } catch (error) {
+    $("bannerMessage").textContent = error.message;
+  }
+});
+
+// LOAD PROFILE AND BANNER SETTINGS
+async function loadSiteSettings() {
+  if (!firebaseConfigured()) return;
 
   try {
-    const product = allProducts.find(item => item.id === id);
+    const snapshot = await getDoc(doc(db, "settings", "site"));
 
-    for (const path of [product?.imagePath, product?.filePath]) {
-      if (path) {
-        try {
-          await deleteObject(ref(storage, path));
-        } catch (error) {
-          console.warn("File deletion:", error);
-        }
-      }
+    if (!snapshot.exists()) return;
+
+    const data = snapshot.data();
+
+    if (data.profileImage) {
+      document.querySelectorAll(".profile-photo, .about-box img")
+        .forEach(img => img.src = data.profileImage);
     }
 
-    await deleteDoc(doc(db, "products", id));
-    toast("Product deleted.");
-    await loadProducts();
+    if (data.bannerImage) {
+      document.querySelector(".hero").style.backgroundImage =
+        `linear-gradient(90deg,#080611ee,#08061188),url("${data.bannerImage}")`;
+
+      document.querySelector(".hero").style.backgroundSize = "cover";
+      document.querySelector(".hero").style.backgroundPosition = "center";
+    }
 
   } catch (error) {
-    toast(error.message);
+    console.error(error);
   }
 }
 
-// Footer year
-$("year").textContent = new Date().getFullYear();
+loadProducts();
+loadSiteSettings();
